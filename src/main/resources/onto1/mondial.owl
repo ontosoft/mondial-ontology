@@ -1,0 +1,471 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.example.org/monidal.owl#"
+     xml:base="http://www.example.org/monidal.owl"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.example.org/monidal.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.example.org/monidal.owl#cityInProvince -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#cityInProvince">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Province"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#countryHasCapital -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#countryHasCapital">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Country"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#encompass1 -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#encompass1">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#encompass2 -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#encompass2">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Continent"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#lakeInProvince -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#lakeInProvince">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Lake"/>
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Province"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#languageCountry -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#languageCountry">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#provinceHasCapital -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#provinceHasCapital">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#provinceInCountry -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#provinceInCountry">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#riverInProvince -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#riverInProvince">
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Province"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#River"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.example.org/monidal.owl#cityLatitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#cityLatitude">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#cityLongitude -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#cityLongitude">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#cityName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#cityName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#cityPopulation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#cityPopulation">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#City"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#continentArea -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#continentArea">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Continent"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#continentName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#continentName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Continent"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#countryArea -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#countryArea">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#countryCode -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#countryCode">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#countryName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#countryName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Country"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#countryPopulation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#countryPopulation">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#encompassPercentage -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#encompassPercentage">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#lakeArea -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#lakeArea">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Lake"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#lakeDepth -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#lakeDepth">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Lake"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#lakeName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#lakeName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Lake"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#lakeRiver -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#lakeRiver">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Lake"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#languageName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#languageName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Language"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#languagePercentage -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#languagePercentage">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Language"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#provinceArea -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#provinceArea">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#provinceName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#provinceName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#provincePopulation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#provincePopulation">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Province"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#riverMountains -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#riverMountains">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#River"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#riverName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.example.org/monidal.owl#riverName">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#River"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.example.org/monidal.owl#City -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#City"/>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Continent -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Continent">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty>
+                            <rdf:Description>
+                                <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#encompass2"/>
+                            </rdf:Description>
+                        </owl:onProperty>
+                        <owl:someValuesFrom rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty>
+                            <rdf:Description>
+                                <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#encompass2"/>
+                            </rdf:Description>
+                        </owl:onProperty>
+                        <owl:onClass rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+                        <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">100</owl:maxQualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Country -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Country">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#countryHasCapital"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#countryHasCapital"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty>
+                            <rdf:Description>
+                                <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#encompass1"/>
+                            </rdf:Description>
+                        </owl:onProperty>
+                        <owl:someValuesFrom rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty>
+                            <rdf:Description>
+                                <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#encompass1"/>
+                            </rdf:Description>
+                        </owl:onProperty>
+                        <owl:onClass rdf:resource="http://www.example.org/monidal.owl#Encompass"/>
+                        <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:maxQualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Encompass -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Encompass">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#encompassPercentage"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#encompassPercentage"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Lake -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Lake"/>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Language -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Language"/>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#Province -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Province"/>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#River -->
+
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#River"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
+

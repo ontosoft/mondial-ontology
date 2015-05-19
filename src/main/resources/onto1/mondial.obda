@@ -1,0 +1,94 @@
+[PrefixDeclaration]
+:		http://www.example.org/monidal.owl#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[SourceDeclaration]
+sourceUri	mundial
+connectionUrl	jdbc:postgresql://localhost:5432/mundial
+username	postgres
+password	sa
+driverClass	org.postgresql.Driver
+
+[MappingDeclaration] @collection [[
+mappingId	cl_Country
+target		:country/{code} a :Country ; :countryCode {code} ; :countryName {name} ; :countryPopulation {population} ; :countryArea {area} . 
+source		select "code", "name","population","area" from "country"
+
+mappingId	cl_City
+target		:city/{country}/{province}/{name} a :City ; :cityName {name} ; :cityPopulation {population} ; :cityLongitude {longitude} . 
+source		select country, province, name, population, longitude, latitude from city
+
+mappingId	op_cityInProvince
+target		:city/{country}/{province}/{name} :cityInProvince :province/{country}/{province} . 
+source		select name,province,country from city
+
+mappingId	cl_Province
+target		:province/{country}/{name} a :Province ; :provinceName {name} ; :provincePopulation {population} ; :provinceArea {area} . 
+source		select name,country, population, area from province
+
+mappingId	op_provinceHasCapital
+target		:province/{country}/{name} :provinceHasCapital :city/{country}/{name}/{capital} . 
+source		select name,country,capital from province
+
+mappingId	op_countryHasCapital
+target		:country/{code} :countryHasCapital :city/{code}/{province}/{capital} . 
+source		select code, capital,province from country
+
+mappingId	op_provinceInCountry
+target		:province/{country}/{name} :provinceInCountry :country/{country} . 
+source		select name,country from province
+
+mappingId	cl_Lake
+target		:lake/{name} a :Lake ; :lakeName {name} ; :lakeDepth {depth} ; :lakeArea {area} ; :lakeRiver {river} . 
+source		select name, depth, area, river
+			from lake
+
+mappingId	op_lakeInProvince
+target		:lake/{lake} :lakeInProvince :province/{country}/{province} . 
+source		select lake,country,province
+			from geo_lake
+
+mappingId	cl_River
+target		:river/{name} a :River ; :riverName {name} ; :riverMountains {mountains} . 
+source		select name, mountains
+			from river
+
+mappingId	op_riverInProvince
+target		:river/{river} :riverInProvince :province/{country}/{province} . 
+source		select river,country,province
+			from geo_river
+
+mappingId	op_encompass1
+target		:encompass/{country}/{continent} :encompass1 :country/{country} . 
+source		select country, continent
+			from encompasses
+
+mappingId	op_encompass2
+target		:encompass/{country}/{continent} :encompass2 :continent/{continent} . 
+source		select country, continent
+			from encompasses
+
+mappingId	cl_Encompass
+target		:encompass/{country}/{continent} a :Encompass ; :encompassPercentage {percentage} . 
+source		select country, continent, percentage
+			from encompasses
+
+mappingId	cl_Language
+target		:language/{country}/{name} a :Language ; :languageName {name} ; :languagePercentage {percentage} . 
+source		select name, country, percentage
+			from language
+
+mappingId	op_languageCountry
+target		:language/{country}/{name} :languageCountry :country/{country} . 
+source		select name, country
+			from language
+
+mappingId	cl_Continent
+target		:continent/{name} a :Continent ; :continentArea {area} ; :continentName {name} . 
+source		select name, area
+			from continent
+]]
+
