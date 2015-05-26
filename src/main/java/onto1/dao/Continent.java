@@ -21,10 +21,11 @@ public class Continent implements Serializable, Cloneable {
 
 	private Long id;
 
+    private String capital = "";
     private String country = "";
     private float area;
-    private String continent = "";
     private int population;
+
 
     
 
@@ -34,6 +35,17 @@ public class Continent implements Serializable, Cloneable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+
+	
+    public String getCapital() {
+		return capital;
+	}
+
+	public void setCapital(String capital) {
+		this.capital = capital;
 	}
 
 
@@ -62,14 +74,6 @@ public class Continent implements Serializable, Cloneable {
 		this.population = population;
 	}
 
-	public String getContinent() {
-		return continent;
-	}
-
-	public void setContinent(String continent) {
-		this.continent = continent;
-	}
-
 	@Override
     public Continent clone() throws CloneNotSupportedException {
         try {
@@ -81,7 +85,7 @@ public class Continent implements Serializable, Cloneable {
 
 	@Override
 	public String toString() {
-		return "Country [id=" + id + ", country="
+		return "Country [id=" + id + ", capital=" + capital + ", country="
 				+ country + ", area=" + area + ", population=" + population
 				+ "]";
 	}

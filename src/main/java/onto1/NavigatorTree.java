@@ -49,18 +49,22 @@ public class NavigatorTree extends VerticalLayout {
 					Notification.show(event.getItemId().toString(),
 							Notification.Type.TRAY_NOTIFICATION);
 				switch (event.getItemId().toString()) {
-				case "Provinces1":
-					notifyListeners("Province1");
+				case "Provinces":
+					notifyListeners("Provinces");
 					Notification.show("Chosen",
 							Notification.Type.TRAY_NOTIFICATION);
 					break;
-				case "Country":
-					notifyListeners("Country");
+				case "Countries":
+					notifyListeners("Countries");
 					Notification.show("Chosen",
 							Notification.Type.TRAY_NOTIFICATION);
 					break;
-				case "Continent":
-					notifyListeners("Continent");
+				case "Economic data":
+					notifyListeners("Economic data");
+
+					break;
+				case "Continents":
+					notifyListeners("Continents");
 					break;
 				default:
 					break;
@@ -71,20 +75,25 @@ public class NavigatorTree extends VerticalLayout {
 		t.setSizeFull();
 		t.setImmediate(true);
 
-		t.addItem("Basic queries");
+		t.addItem("General");
+		t.addItem("Economy");
+		t.addItem("Economy");
 		t.addItem("Advanced queries");
-		t.addItem("Country");
-		t.addItem("Continent");
-		t.addItem("Provinces1");
+		t.addItem("Countries");
+		t.addItem("Continents");
+		t.addItem("Provinces");
+		t.addItem("Economic data");
 
 		// Set the hierarchy
-		t.setParent("Country", "Basic queries");
-		t.setParent("Continent", "Basic queries");
-		t.setParent("Provinces1", "Advanced queries");
+		t.setParent("Continents", "General");
+		t.setParent("Countries", "General");
+		t.setParent("Economic data","Economy");
+		t.setParent("Provinces", "Advanced queries");
 
 		t.setChildrenAllowed("Country", false);
 		t.setChildrenAllowed("Continent", false);
-		t.setChildrenAllowed("Provinces1", false);
+		t.setChildrenAllowed("Provinces", false);
+		t.setChildrenAllowed("Economic data", false);
 		
 		this.addComponent(t);
 

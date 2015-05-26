@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  * application, with "detached entities" simulating real world DAO. Typically
  * these something that the Java EE or Spring backend services provide.
  */
-
+// Backend service class. This is just a typical Java backend implementation
+// class and nothing Vaadin specific.
 public class ContinentService {
 
 	private static ContinentService instance;
@@ -22,13 +23,12 @@ public class ContinentService {
 	public static ContinentService createDemoService() {
 		if (instance == null) {
 
-			ContinentService continentService = new ContinentService();
-				
+			final ContinentService continentService = new ContinentService();
+
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?population ?area ?continent    where {"
-					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
-					+ "  ?con :continentName ?continent. "
-					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population.}";
+					+ "select distinct ?country ?area ?population ?capital where {"
+					+ "  ?co :countryName ?country. ?co :countryHasCapital ?ct. ?ct :cityName ?capital.  "
+					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population}";
 
 			QuestOWLE quest = new QuestOWLE(sparqlQuery);
 			try {
@@ -39,63 +39,18 @@ public class ContinentService {
 			}
 
 			for (ArrayList<String> row : quest.getQueryResult()) {
-				Continent continent = new Continent();
-				continent.setCountry(row.get(0));
-				continent.setPopulation(Integer.parseInt(row.get(1)));
-				continent.setArea(Float.parseFloat(row.get(2)));
-				continent.setContinent(row.get(3));
-				continentService.save(continent);
+				Continent country = new Continent();
+				country.setCountry(row.get(0));
+				country.setArea(Float.parseFloat(row.get(1)));
+				country.setPopulation(Integer.parseInt(row.get(2)));
+				country.setCapital(row.get(3));
+
+				continentService.save(country);
 			}
 			instance = continentService;
 		}
 
 		return instance;
-	}
-	
-	public static ContinentService reloadService(String continentString, 
-			String populationLess, String populationGreater, String areaLess, String areaGreater) {
-			ContinentService continentService = new ContinentService();
-			
-
-			String add1 = "",add2 = "", add3 = "", add4 = "", add5 = "";
-			if (!continentString.isEmpty()) 
-				add1 = "FILTER regex(str(?continent), \""+ continentString + "\"). ";
-			if (!populationLess.isEmpty()) 
-				add2 = "FILTER (?population < "+ populationLess + "). ";
-			if (!populationGreater.isEmpty()) 
-				add3 = "FILTER (?population > "+ populationGreater + "). ";
-			if (!areaLess.isEmpty()) 
-				add4 = "FILTER (?area < "+ ""+ areaLess + "). ";
-			if (!areaGreater.isEmpty()) 
-				add5 = "FILTER (?area > "+ ""+ areaGreater + "). ";
-			
-			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?population ?area ?continent    where {"
-					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
-					+ "  ?con :continentName ?continent. "
-					+ add1 + add2 + add3 + add4 + add5
-					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population.}";
-			System.out.println("************Beginning********");
-			System.out.println(sparqlQuery);
-			
-			QuestOWLE quest = new QuestOWLE(sparqlQuery);
-			try {
-				quest.runQuery();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			for (ArrayList<String> row : quest.getQueryResult()) {
-				Continent continent = new Continent();
-				continent.setCountry(row.get(0));
-				continent.setPopulation(Integer.parseInt(row.get(1)));
-				continent.setArea(Float.parseFloat(row.get(2)));
-				continent.setContinent(row.get(3));
-				continentService.save(continent);
-			}
-			instance = continentService;
-			return instance;
 	}
 
 	private HashMap<Long, Continent> contacts = new HashMap<>();

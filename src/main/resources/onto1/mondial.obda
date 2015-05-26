@@ -63,32 +63,107 @@ source		select river,country,province
 
 mappingId	op_encompass1
 target		:encompass/{country}/{continent} :encompass1 :country/{country} . 
-source		select country, continent
+source		select country, continent, percentage
 			from encompasses
 
 mappingId	op_encompass2
 target		:encompass/{country}/{continent} :encompass2 :continent/{continent} . 
-source		select country, continent
+source		select country, continent, percentage
 			from encompasses
 
-mappingId	cl_Encompass
+mappingId	cl_encompass
 target		:encompass/{country}/{continent} a :Encompass ; :encompassPercentage {percentage} . 
 source		select country, continent, percentage
 			from encompasses
 
 mappingId	cl_Language
 target		:language/{country}/{name} a :Language ; :languageName {name} ; :languagePercentage {percentage} . 
-source		select name, country, percentage
+source		select country, name, percentage
 			from language
 
 mappingId	op_languageCountry
 target		:language/{country}/{name} :languageCountry :country/{country} . 
-source		select name, country
+source		select country, name
 			from language
 
 mappingId	cl_Continent
-target		:continent/{name} a :Continent ; :continentArea {area} ; :continentName {name} . 
+target		:continent/{name} a :Continent ; :continentName {name} ; :continentArea {area} . 
 source		select name, area
 			from continent
+
+mappingId	cl_Politics
+target		:politics/{country} a :Politics ; :politicsIndDate {independence} ; :politicsDepCountry {dependent} ; :politicsGovernment {government} . 
+source		select country, independence, dependent, government
+			from politics
+
+mappingId	cl_Border
+target		:border/{country1}/{country2} a :Border ; :borderCountry1 {country1} ; :borderCountry2 {country2} ; :borderLength {length} . 
+source		select country1, country2, length
+			from borders
+
+mappingId	cl_Economy
+target		:economy/{country} a :Economy ; :economyGdp {gdp} ; :economyAgriculture {agriculture} ; :economyService {service} ; :economyIndustry {industry} ; :economyInflation {inflation} . 
+source		select country, gdp, agriculture, service, industry, inflation
+			from economy
+
+mappingId	cl_Island
+target		:island/{name} a :Island ; :islandName {name} ; :islandIslands {islands} ; :islandArea {area} ; :islandHeight {height} ; :islandType {type} . 
+source		select name, islands, area, height, type
+			from island
+
+mappingId	cl_Desert
+target		:desert/{name} a :Desert ; :desertName {name} ; :desertArea {area} . 
+source		select name, area
+			from desert
+
+mappingId	cl_Sea
+target		:sea/{name} a :Sea ; :seaName {name} ; :seaDepth {depth} . 
+source		select name, depth
+			from sea
+
+mappingId	cl_Organization
+target		:organization/{abbreviation} a :Organization ; :organizationAbbreviation {abbreviation} ; :organizationName {name} ; :organizationEstablished {established} . 
+source		select abbreviation, name, established
+			from organization
+
+mappingId	cl_EthnicGroup
+target		:ethnicgroup/{country}/{name} a :EthnicGroup ; :ethnicGroupName {name} ; :ethnicGroupPercentage {percentage} . 
+source		select country, name, percentage
+			from ethnicgroup
+
+mappingId	cl_Religion
+target		:religion/{country}/{name} a :Religion ; :religionName {name} ; :religionPercentage {percentage} . 
+source		select country, name, percentage
+			from religion
+
+mappingId	cl_Mountain
+target		:religion/{name} a :Mountain ; :mountainName {name} ; :mountainHeight {height} ; :mountainType {type} . 
+source		select name, height, type
+			from mountain
+
+mappingId	op_governmentInCountry
+target		:politics/{country} :governmentInCountry :country/{country} . 
+source		select country
+			from politics
+
+mappingId	op_economyInCountry
+target		:economy/{country} :economyInCountry :country/{country} . 
+source		select country
+			from economy
+
+mappingId	cl_Member
+target		:member/{organization}/{country} a :Member ; :memberType {type} . 
+source		select country, organization, type
+			from isMember
+
+mappingId	op_memberCountry
+target		:member/{organization}/{country} :memberCountry :country/{country} . 
+source		select country, organization
+			from isMember
+
+mappingId	op_memberOrganization
+target		:member/{organization}/{country} :memberOrganization :organization/{organization} . 
+source		select organization, country
+			from isMember
 ]]
 

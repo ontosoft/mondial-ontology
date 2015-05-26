@@ -13,6 +13,7 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -39,6 +40,7 @@ public class MyUI extends UI {
 	private static final long serialVersionUID = -3273531387190391203L;
 	private  final VerticalLayout right = new VerticalLayout();
 	private MenuBar mainMenu;
+	ComboBox themePicker = new ComboBox("Theme", Arrays.asList(themes));
 	
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
@@ -55,10 +57,10 @@ public class MyUI extends UI {
 	}
 
 	private ComboBox getThemePicking(){
-		ComboBox themePicker = new ComboBox("Theme", Arrays.asList(themes));
         themePicker.setValue(getTheme());
         themePicker.setNullSelectionAllowed(false);
         themePicker.setTextInputAllowed(false);
+        themePicker.setSizeUndefined();
         themePicker.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -90,9 +92,12 @@ public class MyUI extends UI {
 		
 		mainMenu = menu();
 		FormLayout themeLayout = new FormLayout(getThemePicking());
+		themeLayout.setSizeUndefined();
 		themeLayout.setMargin(false);
 		
 		HorizontalLayout menuLayout = new HorizontalLayout(mainMenu,themeLayout);
+		menuLayout.setWidth("100%");
+		menuLayout.setComponentAlignment(themeLayout, Alignment.MIDDLE_RIGHT);
 		menuLayout.setExpandRatio(mainMenu, 0);
 		menuLayout.setMargin(false);
 

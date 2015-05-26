@@ -3,28 +3,28 @@ package onto1.view;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class SearchForm extends FormLayout {
+public class SearchForm extends VerticalLayout {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 851894446243275846L;
 	Button search= new Button("Search", this::search);
 	Button cancel = new Button ("Clean", this::cancel);
-	TextField populationLess = new TextField("Population less then");
-	TextField populationGreater = new TextField("Population greater then");
-    TextField areaLess = new TextField("Area less then");
+	TextField populationLess = new TextField("Population less than");
+	TextField populationGreater = new TextField("Population greater than");
+    TextField areaLess = new TextField("Area less than");
     TextField areaGreater = new TextField("Area greater than");
     TextField continentString = new TextField("Continent");
     
-    ContinentLayout parentForm = null;
+    CountryLayout parentForm = null;
     
     
-    public SearchForm(ContinentLayout p){
+    public SearchForm(CountryLayout p){
     	parentForm = p;
     	configureComponents();
     	buildLayout();
@@ -33,10 +33,21 @@ public class SearchForm extends FormLayout {
     private void buildLayout() {
 		setSizeUndefined();
 		setMargin(true);
-		HorizontalLayout actions = new HorizontalLayout(search,cancel);
-		actions.setSpacing(true);
-		addComponents(populationLess, populationGreater, areaLess, areaGreater, continentString, actions );
-//		populationLess.addValidator(new IntegerRangeValidator(
+		//HorizontalLayout actions = new HorizontalLayout(search,cancel);
+		//actions.setSpacing(true);
+		GridLayout searchFields = new GridLayout(5,2);
+		searchFields.addComponent(populationGreater,0,0);
+		searchFields.addComponent(populationLess,1,0);
+		searchFields.addComponent(areaGreater,2,0);
+		searchFields.addComponent(areaLess,3,0);
+		searchFields.addComponent(continentString,4,0);
+		
+		searchFields.addComponent(search,0,1);
+		searchFields.addComponent(cancel,1,1);
+		
+		searchFields.setSpacing(true);
+		addComponents(searchFields);
+//		populationLess.addValidator(new IndtegerRangeValidator(
 //	            "The value must be integer between 0-120 (was {0})",
 //	            0, 120));
 		
@@ -72,7 +83,11 @@ public class SearchForm extends FormLayout {
 	}
 	
 	public void cancel(Button.ClickEvent event) {
-        parentForm.getContactList().select(null);
+		continentString.setValue("");
+		populationLess.setValue(""); 
+		populationGreater.setValue(""); 
+		areaLess.setValue("");
+		areaGreater.setValue("");
     }
 	
 

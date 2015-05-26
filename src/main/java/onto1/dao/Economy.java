@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 // Backend DTO class. This is just a typical Java backend implementation
 // class and nothing Vaadin specific.
-public class Country implements Serializable, Cloneable {
+public class Economy implements Serializable, Cloneable {
 
 	 /**
 	 * 
@@ -22,9 +22,13 @@ public class Country implements Serializable, Cloneable {
 	private Long id;
 
     private String country = "";
-    private float area;
+    private float gdp;
+    private float agriculture;
+    private float service;
+    private float industry;
+    private float inflation;
     private String continent = "";
-    private int population;
+
 
     
 
@@ -46,20 +50,45 @@ public class Country implements Serializable, Cloneable {
 	}
 
 
-	public float getArea() {
-		return area;
+
+	public float getGdp() {
+		return gdp;
 	}
 
-	public void setArea(float area) {
-		this.area = area;
+	public void setGdp(float gdp) {
+		this.gdp = gdp;
 	}
 
-	public int getPopulation() {
-		return population;
+	public float getAgriculture() {
+		return agriculture;
 	}
 
-	public void setPopulation(int population) {
-		this.population = population;
+	public void setAgriculture(float agriculture) {
+		this.agriculture = agriculture;
+	}
+
+	public float getService() {
+		return service;
+	}
+
+	public void setService(float service) {
+		this.service = service;
+	}
+
+	public float getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(float industry) {
+		this.industry = industry;
+	}
+
+	public float getInflation() {
+		return inflation;
+	}
+
+	public void setInflation(float inflation) {
+		this.inflation = inflation;
 	}
 
 	public String getContinent() {
@@ -71,21 +100,15 @@ public class Country implements Serializable, Cloneable {
 	}
 
 	@Override
-    public Country clone() throws CloneNotSupportedException {
+    public Economy clone() throws CloneNotSupportedException {
         try {
-            return (Country) BeanUtils.cloneBean(this);
+            return (Economy) BeanUtils.cloneBean(this);
         } catch (Exception ex) {
             throw new CloneNotSupportedException();
         }
     }
 
-	@Override
-	public String toString() {
-		return "Country [id=" + id + ", country=" + country + ", area=" + area
-				+ ", continent=" + continent + ", population=" + population
-				+ "]";
-	}
-
+	
 
 
 
