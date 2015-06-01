@@ -1,14 +1,16 @@
-package onto1;
+package onto1.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import onto1.ValueSubmittedListener;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class NavigatorTree extends VerticalLayout {
+public class CountryDetailsNavigatorTree extends VerticalLayout {
 	/**
 	 * 
 	 */
@@ -27,7 +29,7 @@ public class NavigatorTree extends VerticalLayout {
 		}
 	}
 
-	public NavigatorTree() {
+	public CountryDetailsNavigatorTree() {
 		// TODO Auto-generated constructor stub
 		
 		this.setHeight(null);

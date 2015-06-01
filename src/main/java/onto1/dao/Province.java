@@ -55,13 +55,14 @@ public class Province implements Serializable, Cloneable {
 		this.country = country;
 	}
 
-	@Override
-	public String toString() {
-		return "Province [id=" + id + ", city=" + city + ", province="
-				+ province + "]";
-	}
 
     @Override
+	public String toString() {
+		return "Province [id=" + id + ", city=" + city + ", province="
+				+ province + ", country=" + country + "]";
+	}
+
+	@Override
     public Province clone() throws CloneNotSupportedException {
         try {
             return (Province) BeanUtils.cloneBean(this);

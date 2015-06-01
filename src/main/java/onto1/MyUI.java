@@ -27,7 +27,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @SuppressWarnings("deprecation")
 @Title("OntoUI")
-@Theme("valo")
+@Theme("reindeer")
 @Widgetset("onto1.MyAppWidgetset")
 public class MyUI extends UI {
 

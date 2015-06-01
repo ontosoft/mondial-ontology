@@ -161,25 +161,7 @@ public class EconomyLayout extends VerticalLayout{
 	        NumberRenderer poundRenderer = new NumberRenderer(poundformat);
 	        contactList.getColumn("amount").setRenderer(poundRenderer);
 
-	        contactList.getColumn("count").setConverter(new StringToIntegerConverter() {
-	            /**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
-				@Override
-//	            public String convertToPresentation(Integer value,
-//	                    Class<? extends String> targetType, Locale locale)
-//	                    throws Converter.ConversionException {
-//	                String stringRepresentation = super.convertToPresentation(
-//	                        value, targetType, locale);
-//	                if (value.intValue() % 2 == 0) {
-//	                    return "<strong>" + stringRepresentation + "</strong>";
-//	                } else {
-//	                    return "<em>" + stringRepresentation + "</em>";
-//	                }
-//	            }
-	        });
 
 	        contactList.getColumn("count").setRenderer(new HtmlRenderer());
 			
