@@ -1,4 +1,4 @@
-package onto1.dao;
+package ontologies.mondial.dao;
 
 import org.apache.commons.beanutils.BeanUtils;
 

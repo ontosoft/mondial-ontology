@@ -1,7 +1,7 @@
-package onto1.services;
+package ontologies.mondial.services;
 
-import onto1.QuestOWLE;
-import onto1.dao.Continent;
+
+import ontologies.mondial.dao.Continent;
 
 import org.apache.commons.beanutils.BeanUtils;
 

@@ -1,4 +1,7 @@
-package onto1.view;
+package ontologies.mondial.view;
+
+
+import ontologies.mondial.dao.Country;
 
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -10,32 +13,34 @@ public class CountrySubWindow extends Window {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public CountrySubWindow() {
-	        super("Country Details"); // Set window caption
+	public CountrySubWindow(Country country) {
+	        super(country.getCountry() + " - country details"); // Set window caption
 	        center();
-	        buildCountryDetailsLayout();
-	      
-	    }
-	private void buildCountryDetailsLayout() {
+	        buildCountryDetailsLayout(country);
+	        setWidth("80%");
+	        setHeight("80%");
+	}
+	private void buildCountryDetailsLayout(Country country) {
 
 		HorizontalLayout empty = new HorizontalLayout();
-		empty.setWidth("100%");
 		VerticalLayout right = new VerticalLayout();
 		right.addComponent(empty);
 		right.setSizeFull();
 		
 		CountryDetailsNavigatorTree navTree = new CountryDetailsNavigatorTree();
+		navTree.setSizeFull();
 
-		CountryDetails vsplit = new CountryDetails();
-		vsplit.setSplitPosition(15);
+		CountryDetails vsplit = new CountryDetails(country);
+		vsplit.setSplitPosition(12);
 		vsplit.setSizeFull();
 		vsplit.setFirstComponent(navTree);
 		vsplit.setSecondComponent(right);
 		
-		navTree.addListener(vsplit);
-		
+		navTree.addListener(vsplit);		
 		VerticalLayout mainLayout = new VerticalLayout();
-		mainLayout.addComponent(navTree);
+		mainLayout.addComponent(vsplit);
+		mainLayout.setSizeFull();
+		mainLayout.setExpandRatio(vsplit, 1);
 		
 		setContent(mainLayout);
 

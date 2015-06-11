@@ -1,7 +1,7 @@
-package onto1.services;
+package ontologies.mondial.services;
 
-import onto1.QuestOWLE;
-import onto1.dao.Country;
+
+import ontologies.mondial.dao.Country;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -25,8 +25,9 @@ public class CountryService {
 			CountryService countryService = new CountryService();
 				
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?population ?area ?continent    where {"
+					+ "select distinct ?co ?country ?capital ?population ?area ?continent  where {"
 					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
+					+ "  ?co :countryHasCapital ?ci. ?ci :cityName ?capital."
 					+ "  ?con :continentName ?continent. "
 					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population.}";
 
@@ -40,10 +41,12 @@ public class CountryService {
 
 			for (ArrayList<String> row : quest.getQueryResult()) {
 				Country country = new Country();
-				country.setCountry(row.get(0));
-				country.setPopulation(Integer.parseInt(row.get(1)));
-				country.setArea(Float.parseFloat(row.get(2)));
-				country.setContinent(row.get(3));
+				country.setUri(row.get(0));
+				country.setCountry(row.get(1));
+				country.setCapital(row.get(2));
+				country.setPopulation(Integer.parseInt(row.get(3)));
+				country.setArea(Float.parseFloat(row.get(4)));
+				country.setContinent(row.get(5));
 				countryService.save(country);
 			}
 			instance = countryService;
@@ -70,9 +73,10 @@ public class CountryService {
 				add5 = "FILTER (?area > "+ ""+ areaGreater + "). ";
 			
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?population ?area ?continent    where {"
+					+ "select distinct ?co ?country ?capital ?population ?area ?continent    where {"
 					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
 					+ "  ?con :continentName ?continent. "
+					+ "  ?co :countryHasCapital ?ci. ?ci :cityName ?capital."
 					+ add1 + add2 + add3 + add4 + add5
 					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population.}";
 			System.out.println("************Beginning********");
@@ -87,12 +91,14 @@ public class CountryService {
 			}
 
 			for (ArrayList<String> row : quest.getQueryResult()) {
-				Country continent = new Country();
-				continent.setCountry(row.get(0));
-				continent.setPopulation(Integer.parseInt(row.get(1)));
-				continent.setArea(Float.parseFloat(row.get(2)));
-				continent.setContinent(row.get(3));
-				continentService.save(continent);
+				Country country = new Country();
+				country.setUri(row.get(0));
+				country.setCountry(row.get(1));
+				country.setCapital(row.get(2));
+				country.setPopulation(Integer.parseInt(row.get(3)));
+				country.setArea(Float.parseFloat(row.get(4)));
+				country.setContinent(row.get(5));
+				continentService.save(country);
 			}
 			instance = continentService;
 			return instance;

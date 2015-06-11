@@ -1,4 +1,4 @@
-package onto1.view;
+package ontologies.mondial.view;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.ThemeResource;
@@ -8,23 +8,23 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class SearchForm extends VerticalLayout {
+public class ProvinceSearchForm extends VerticalLayout {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 851894446243275846L;
 	Button search= new Button("Search", this::search);
 	Button cancel = new Button ("Clean", this::cancel);
-	TextField populationLess = new TextField("Population less than");
-	TextField populationGreater = new TextField("Population greater than");
-    TextField areaLess = new TextField("Area less than");
-    TextField areaGreater = new TextField("Area greater than");
-    TextField continentString = new TextField("Continent");
+	TextField populationLess = new TextField("Population <");
+	TextField populationGreater = new TextField("Population >");
+    TextField areaLess = new TextField("Area <");
+    TextField areaGreater = new TextField("Area >");
+    TextField countryString = new TextField("Country");
     
-    CountryLayout parentForm = null;
+    ProvinceLayout parentForm = null;
     
     
-    public SearchForm(CountryLayout p){
+    public ProvinceSearchForm(ProvinceLayout p){
     	parentForm = p;
     	configureComponents();
     	buildLayout();
@@ -40,7 +40,7 @@ public class SearchForm extends VerticalLayout {
 		searchFields.addComponent(populationLess,1,0);
 		searchFields.addComponent(areaGreater,2,0);
 		searchFields.addComponent(areaLess,3,0);
-		searchFields.addComponent(continentString,4,0);
+		searchFields.addComponent(countryString,4,0);
 		
 		searchFields.addComponent(search,0,1);
 		searchFields.addComponent(cancel,1,1);
@@ -63,7 +63,7 @@ public class SearchForm extends VerticalLayout {
 	
 	public void search(Button.ClickEvent event){
 
-            parentForm.reloadTuples(continentString.getValue(), populationLess.getValue().toString(), 
+            parentForm.reloadTuples(countryString.getValue(), populationLess.getValue().toString(), 
             		populationGreater.getValue().toString(), 
             		areaLess.getValue().toString(), areaGreater.getValue().toString());
 
@@ -83,7 +83,7 @@ public class SearchForm extends VerticalLayout {
 	}
 	
 	public void cancel(Button.ClickEvent event) {
-		continentString.setValue("");
+		countryString.setValue("");
 		populationLess.setValue(""); 
 		populationGreater.setValue(""); 
 		areaLess.setValue("");

@@ -1,8 +1,8 @@
-package onto1.dao;
-
-import org.apache.commons.beanutils.BeanUtils;
+package ontologies.mondial.dao;
 
 import java.io.Serializable;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * A simple DTO for the address book example.
@@ -14,11 +14,16 @@ import java.io.Serializable;
 // class and nothing Vaadin specific.
 public class Province implements Serializable, Cloneable {
 
-	 private Long id;
+	private static final long serialVersionUID = 1L;
 
+	private Long id;
+	private String uri="";
     private String city = "";
     private String province = "";
     private String country = "";
+    private int population;
+    private float area;
+
 
 
     
@@ -29,6 +34,14 @@ public class Province implements Serializable, Cloneable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 
 	public String getCity() {
@@ -56,7 +69,23 @@ public class Province implements Serializable, Cloneable {
 	}
 
 
-    @Override
+    public int getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(int population) {
+		this.population = population;
+	}
+
+	public float getArea() {
+		return area;
+	}
+
+	public void setArea(float area) {
+		this.area = area;
+	}
+
+	@Override
 	public String toString() {
 		return "Province [id=" + id + ", city=" + city + ", province="
 				+ province + ", country=" + country + "]";

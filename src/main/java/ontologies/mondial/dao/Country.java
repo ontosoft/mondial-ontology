@@ -1,4 +1,4 @@
-package onto1.dao;
+package ontologies.mondial.dao;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -20,8 +20,9 @@ public class Country implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-
+	private String uri="";
     private String country = "";
+    private String capital = "";
     private float area;
     private String continent = "";
     private int population;
@@ -37,6 +38,14 @@ public class Country implements Serializable, Cloneable {
 	}
 
 
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
 	public String getCountry() {
 		return country;
 	}
@@ -45,6 +54,14 @@ public class Country implements Serializable, Cloneable {
 		this.country = country;
 	}
 
+
+	public String getCapital() {
+		return capital;
+	}
+
+	public void setCapital(String capital) {
+		this.capital = capital;
+	}
 
 	public float getArea() {
 		return area;
@@ -81,10 +98,12 @@ public class Country implements Serializable, Cloneable {
 
 	@Override
 	public String toString() {
-		return "Country [id=" + id + ", country=" + country + ", area=" + area
-				+ ", continent=" + continent + ", population=" + population
-				+ "]";
+		return "Country [country=" + country + ", capital=" + capital
+				+ ", area=" + area + ", continent=" + continent
+				+ ", population=" + population + "]";
 	}
+
+
 
 
 

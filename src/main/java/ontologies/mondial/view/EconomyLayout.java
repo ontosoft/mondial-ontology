@@ -1,14 +1,13 @@
-package onto1.view;
+package ontologies.mondial.view;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import onto1.dao.Economy;
-import onto1.services.EconomyService;
+import ontologies.mondial.dao.Country;
+import ontologies.mondial.dao.Economy;
+import ontologies.mondial.services.EconomyService;
 
-import com.google.gwt.thirdparty.guava.common.base.Converter;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.data.util.converter.StringToIntegerConverter;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -37,15 +36,22 @@ public class EconomyLayout extends VerticalLayout{
 	private Grid contactList = new Grid();
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
-	private EconomyService service = EconomyService.createDemoService();
+	private EconomyService service;
 	
 	public EconomyLayout(){
+		service = EconomyService.createDemoService();
 		buildLayout();
 		configureComponents();
 		//formatCells();
 	}
 	
-   
+   	public EconomyLayout(Country c){
+		buildLayout();
+		configureComponents();
+		searchFormHide.setVisible(false);
+		//formatCells();
+	}
+	
 
 	public Grid getContactList() {
 		return contactList;
@@ -136,7 +142,8 @@ public class EconomyLayout extends VerticalLayout{
 		
 	}
 	
-	 private void formatCells() {
+	 @SuppressWarnings("unused")
+	private void formatCells() {
 		 contactList.setCellStyleGenerator(new CellStyleGenerator() {
 	            /**
 			 * 

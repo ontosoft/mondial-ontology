@@ -1,16 +1,14 @@
-package onto1.view;
+package ontologies.mondial;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import onto1.ValueSubmittedListener;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class CountryDetailsNavigatorTree extends VerticalLayout {
+public class NavigatorTree extends VerticalLayout {
 	/**
 	 * 
 	 */
@@ -29,7 +27,7 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 		}
 	}
 
-	public CountryDetailsNavigatorTree() {
+	public NavigatorTree() {
 		// TODO Auto-generated constructor stub
 		
 		this.setHeight(null);
@@ -86,8 +84,9 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 		// Set the hierarchy
 		t.setParent("Continents", "General");
 		t.setParent("Countries", "General");
+		t.setParent("Provinces", "General");
 		t.setParent("Economic data","Economy");
-		t.setParent("Provinces", "Advanced queries");
+		
 
 		t.setChildrenAllowed("Country", false);
 		t.setChildrenAllowed("Continent", false);

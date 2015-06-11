@@ -1,9 +1,9 @@
-package onto1;
+package ontologies.mondial;
 
-import onto1.view.CountryLayout;
-import onto1.view.ContinentLayout;
-import onto1.view.EconomyLayout;
-import onto1.view.ProvinceLayout;
+import ontologies.mondial.view.ContinentLayout;
+import ontologies.mondial.view.CountryLayout;
+import ontologies.mondial.view.EconomyLayout;
+import ontologies.mondial.view.ProvinceLayout;
 
 import com.vaadin.ui.HorizontalSplitPanel;
 

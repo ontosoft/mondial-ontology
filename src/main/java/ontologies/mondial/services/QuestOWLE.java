@@ -1,4 +1,4 @@
-package onto1;
+package ontologies.mondial.services;
 
 import it.unibz.krdb.obda.io.ModelIOManager;
 import it.unibz.krdb.obda.model.OBDADataFactory;
@@ -54,8 +54,10 @@ public class QuestOWLE {
 		//Trimming " and "^^xsd:string
 		public String trimmString(String s){
 			int last = s.lastIndexOf("\"^^");
-			
-			return s.substring(1, last);
+			if (last>=0)		
+				return s.substring(1, last);
+			else 
+				return s;
 			
 		}
 

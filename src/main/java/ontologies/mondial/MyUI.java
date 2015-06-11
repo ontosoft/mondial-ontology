@@ -1,4 +1,4 @@
-package onto1;
+package ontologies.mondial;
 
 import java.util.Arrays;
 
@@ -83,7 +83,7 @@ public class MyUI extends UI {
 		NavigatorTree navTree = new NavigatorTree();
 
 		MainSplitPannel vsplit = new MainSplitPannel();
-		vsplit.setSplitPosition(18);
+		vsplit.setSplitPosition(15);
 		vsplit.setSizeFull();
 		vsplit.setFirstComponent(navTree);
 		vsplit.setSecondComponent(right);

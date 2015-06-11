@@ -1,14 +1,16 @@
-package onto1;
+package ontologies.mondial.view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ontologies.mondial.ValueSubmittedListener;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class NavigatorTree extends VerticalLayout {
+public class CountryDetailsNavigatorTree extends VerticalLayout {
 	/**
 	 * 
 	 */
@@ -27,11 +29,11 @@ public class NavigatorTree extends VerticalLayout {
 		}
 	}
 
-	public NavigatorTree() {
+	public CountryDetailsNavigatorTree() {
 		// TODO Auto-generated constructor stub
 		
-		this.setHeight(null);
-		this.setWidth(null);
+		this.setSizeUndefined();
+		this.setHeight("100%");
 		
 		
 		
@@ -53,15 +55,15 @@ public class NavigatorTree extends VerticalLayout {
 					notifyListeners("Provinces");
 					break;
 				case "Countries":
-					notifyListeners("Countries");
+					notifyListeners("Hidrology");
 					
 					break;
 				case "Economic data":
-					notifyListeners("Economic data");
+					notifyListeners("Geo-morphology");
 
 					break;
 				case "Continents":
-					notifyListeners("Continents");
+					notifyListeners("Economy");
 					break;
 				default:
 					break;
@@ -72,25 +74,16 @@ public class NavigatorTree extends VerticalLayout {
 		t.setSizeFull();
 		t.setImmediate(true);
 
-		t.addItem("General");
-		t.addItem("Economy");
-		t.addItem("Economy");
-		t.addItem("Advanced queries");
-		t.addItem("Countries");
-		t.addItem("Continents");
 		t.addItem("Provinces");
-		t.addItem("Economic data");
+		t.addItem("Hidrology");
+		t.addItem("Geo-morphology");
+		t.addItem("Economy");
 
-		// Set the hierarchy
-		t.setParent("Continents", "General");
-		t.setParent("Countries", "General");
-		t.setParent("Economic data","Economy");
-		t.setParent("Provinces", "Advanced queries");
 
-		t.setChildrenAllowed("Country", false);
-		t.setChildrenAllowed("Continent", false);
 		t.setChildrenAllowed("Provinces", false);
-		t.setChildrenAllowed("Economic data", false);
+		t.setChildrenAllowed("Hidrology", false);
+		t.setChildrenAllowed("Geo-morphology", false);
+		t.setChildrenAllowed("Economy", false);
 		
 		this.addComponent(t);
 

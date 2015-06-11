@@ -1,9 +1,9 @@
-package onto1.view;
+package ontologies.mondial.view;
 
-import onto1.MainSplitPannel;
-import onto1.NavigatorTree;
-import onto1.dao.Country;
-import onto1.services.CountryService;
+
+import ontologies.mondial.dao.Country;
+import ontologies.mondial.dao.Province;
+import ontologies.mondial.services.ProvinceService;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -13,53 +13,39 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-public class CountryLayout extends VerticalLayout {
+public class ProvinceLayout extends VerticalLayout{
 
-	SearchForm searchForm = new SearchForm(this);
-	CountryDetails details = new CountryDetails();
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = -4679449649489092925L;
-
-	private Table contactList = new Table();
+	ProvinceSearchForm searchForm = new ProvinceSearchForm(this);
+	Country country = null;
+	private Table list = new Table();
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
-	private CountryService service = CountryService.createDemoService();
-
-	// FooterRow footer = contactList.appendFooterRow();
-
-	public CountryLayout() {
+	private ProvinceService service;
+	
+	public ProvinceLayout(){
+		service = ProvinceService.createDemoService();
 		buildLayout();
 		configureComponents();
 	}
+	
+    public ProvinceLayout(Country c) {
+		this.country=c;
+		service = ProvinceService.reloadService(this.country.getUri(), "", "", "", "", "");
+		buildLayout();
+		configureComponents();
 
-	public Table getContactList() {
-		return contactList;
-	}
-
-	public void setContactList(Table contactList) {
-		this.contactList = contactList;
-	}
-
-	public void onSubmitted(String value) {
-		// to be implemented
-	}
-
-	public Button getSearchFormHide() {
-		return searchFormHide;
-	}
-
-	public void setSearchFormHide(Button searchFormHide) {
-		this.searchFormHide = searchFormHide;
 	}
 
 	private void buildLayout() {
@@ -67,14 +53,15 @@ public class CountryLayout extends VerticalLayout {
 		title.setMargin(false);
 		title.setWidth("100%");
 		Label lblTitle = new Label(
-				"General data about countries within continent");
+				"Provinces");
 		lblTitle.addStyleName("h2");
 		lblTitle.setSizeUndefined();
 		title.addComponent(lblTitle, 0, 0);
 		title.setComponentAlignment(lblTitle, Alignment.MIDDLE_CENTER);
-
+		
 		this.addComponent(title);
 		this.addComponent(searchForm);
+		
 		HorizontalLayout actions = new HorizontalLayout(filter, searchFormHide);
 		searchFormHide.setIcon(new ThemeResource("../../icons/up.svg"));
 		actions.setWidth("100%");
@@ -84,38 +71,37 @@ public class CountryLayout extends VerticalLayout {
 		this.setSizeFull();
 		this.setMargin(false);
 		this.addComponent(actions);
-		this.addComponent(contactList);
-
-		this.setExpandRatio(contactList, 1);
-		contactList.setSizeFull();
-
+		this.addComponent(list);
+		
+		this.setExpandRatio(list, 1);
+		list.setSizeFull();
+		
 	}
+
+
 
 	public void configureComponents() {
 
 		searchFormHide
-				.addClickListener(e -> searchForm.alternatingSearchForm());
+		.addClickListener(e -> searchForm.alternatingSearchForm());
 		filter.setInputPrompt("Filter contacts...");
 		filter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
-		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Country.class));
-
-		contactList.setVisibleColumns(new Object[] { "country", "area",
-				"population", "continent" });
-		contactList.setMultiSelect(false);
-		contactList.setSizeFull();
-		contactList.setSelectable(true);
-		contactList.setImmediate(true);
- 
-		contactList.addShortcutListener(new ShortcutListener("Delete",
+		list.setContainerDataSource(new BeanItemContainer<>(
+				Province.class));
+		list.setMultiSelect(false);
+		list.setSizeFull();
+		list.setSelectable(true);
+		list.setImmediate(true);
+		
+		list.addShortcutListener(new ShortcutListener("Details",
 				KeyCode.ARROW_RIGHT, null) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void handleAction(final Object sender, final Object target) {
-				if (contactList.getValue() != null) {
+				if (list.getValue() != null) {
 					// here send event to your presenter to remove it physically
 					// in database
 					// and then refresh the table
@@ -124,7 +110,7 @@ public class CountryLayout extends VerticalLayout {
 			}
 		});
 
-		contactList.addGeneratedColumn("Action", new ColumnGenerator() {
+		list.addGeneratedColumn("details", new ColumnGenerator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -136,36 +122,48 @@ public class CountryLayout extends VerticalLayout {
 
 					@Override
 					public void buttonClick(ClickEvent event) {
-						CountrySubWindow sub = new CountrySubWindow();
+//						ProvinceSubWindow sub = new ProvinceSubWindow((Province)itemId);
 				        
 				        // Add it to the root component
-				        UI.getCurrent().addWindow(sub);
+//				        UI.getCurrent().addWindow(sub);
 					}
 				});
 				return btn;
 			}
 		});
-
+		
+//		contactList.addSelectionListener(e -> contactForm
+//				.edit((Province) contactList.getSelectedRow()));
 		refreshContacts();
 	}
 
 	void refreshContacts() {
 		refreshContacts(filter.getValue());
-
-	}
-
-	void reloadTuples(String continentString, String populationLess,
-			String populationGreater, String areaLess, String areaGreater) {
-		service = CountryService.reloadService(continentString, populationLess,
-				populationGreater, areaLess, areaGreater);
-		refreshContacts(filter.getValue());
 	}
 
 	private void refreshContacts(String stringFilter) {
-		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Country.class, service.findAll(stringFilter)));
-		// footer.getCell("continent").setText("Number of items: "+
-		// service.findAll(stringFilter).size());
+		list.setContainerDataSource(new BeanItemContainer<>(
+				Province.class, service.findAll(stringFilter)));
+		list.setVisibleColumns("country", "province", "city", "population", "area", "details");
 	}
 	
+	void reloadTuples(String countryString, String populationLess,
+			String populationGreater, String areaLess, String areaGreater) {
+		if (this.country != null)
+			service = ProvinceService.reloadService(this.country.getUri(), countryString, populationLess,
+					populationGreater, areaLess, areaGreater);
+		else
+			service = ProvinceService.reloadService("", countryString, populationLess,
+				populationGreater, areaLess, areaGreater);
+		refreshContacts(filter.getValue());
+	}
+	
+	public Button getSearchFormHide() {
+		return searchFormHide;
+	}
+
+	public void setSearchFormHide(Button searchFormHide) {
+		this.searchFormHide = searchFormHide;
+	}
+
 }

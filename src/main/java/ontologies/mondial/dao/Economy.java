@@ -1,4 +1,4 @@
-package onto1.dao;
+package ontologies.mondial.dao;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -108,10 +108,13 @@ public class Economy implements Serializable, Cloneable {
         }
     }
 
-	
-
-
-
+	@Override
+	public String toString() {
+		return "Economy [id=" + id + ", country=" + country + ", gdp=" + gdp
+				+ ", agriculture=" + agriculture + ", service=" + service
+				+ ", industry=" + industry + ", inflation=" + inflation
+				+ ", continent=" + continent + "]";
+	}
 
 
 }

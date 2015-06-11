@@ -1,6 +1,8 @@
-package onto1.view;
+package ontologies.mondial.view;
 
-import onto1.ValueSubmittedListener;
+import ontologies.mondial.ValueSubmittedListener;
+import ontologies.mondial.dao.Country;
+import ontologies.mondial.view.EconomyLayout;
 
 import com.vaadin.ui.HorizontalSplitPanel;
 
@@ -18,30 +20,39 @@ public class CountryDetails extends HorizontalSplitPanel implements
 		}
 			
 		
-	}/**
-	 * 
-	 */
+	}
+
+	private Country country;
+	
+	public CountryDetails(Country country) {
+		super();
+		this.country = country;
+	}
+
 	private static final long serialVersionUID = 1030484021469740942L;
 
+	
+	
+	
 	@Override
 	public void onSubmitted(String value) {
 		// TODO Auto-generated method stub
 		ValueSubmittedListener.super.onSubmitted(value);
 		switch(value){
 		case "Provinces": 
-			ProvinceLayout provinceL = new ProvinceLayout();
+			ProvinceLayout provinceL = new ProvinceLayout(country);
 			this.setSecondComponent(provinceL);
 			break;
-		case "Countries": 
-			CountryLayout country = new CountryLayout();
-			this.setSecondComponent(country);
+		case "Hidrology": 
+//			CountryLayout countryL = new CountryLayout(country);
+//			this.setSecondComponent(country);
 			break;
-		case "Continents": 
-			ContinentLayout continent = new ContinentLayout();
-			this.setSecondComponent(continent);
+		case "Geo-morphology": 
+//			ContinentLayout continent = new ContinentLayout(country);
+//			this.setSecondComponent(continent);
 			break;
-		case "Economic data": 
-			EconomyLayout economy = new EconomyLayout();
+		case "Economy": 
+			EconomyLayout economy = new EconomyLayout(country);
 			this.setSecondComponent(economy);
 			break;
 		default:

@@ -1,4 +1,4 @@
-package onto1.view;
+package ontologies.mondial.view;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.ThemeResource;

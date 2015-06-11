@@ -1,7 +1,8 @@
-package onto1.view;
+package ontologies.mondial.view;
 
-import onto1.dao.Province;
-import onto1.services.ProvinceService;
+
+import ontologies.mondial.dao.Continent;
+import ontologies.mondial.services.ContinentService;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
@@ -10,7 +11,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class ProvinceLayout extends VerticalLayout{
+public class ContinentLayout extends VerticalLayout{
 
 	/**
 	 * 
@@ -23,10 +24,9 @@ public class ProvinceLayout extends VerticalLayout{
 	private Grid contactList = new Grid();
 	private Button newContact = new Button();
 	private TextField filter = new TextField();
-	//private ContactForm contactForm = new ContactForm();
-	private ProvinceService service = ProvinceService.createDemoService();
+	private ContinentService service = ContinentService.createDemoService();
 	
-	public ProvinceLayout(){
+	public ContinentLayout(){
 		buildLayout();
 		configureComponents();
 	}
@@ -55,17 +55,17 @@ public class ProvinceLayout extends VerticalLayout{
 
 	public void configureComponents() {
 
-		//newContact.addClickListener(e -> contactForm.edit(new Province()));
+		//newContact.addClickListener(e -> contactForm.edit(new Country()));
 		filter.setInputPrompt("Filter contacts...");
 		filter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
 		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Province.class));
-		contactList.setColumnOrder("country", "province","city");
+				Continent.class));
+		contactList.setColumnOrder("country","area","population","capital");
 		contactList.removeColumn("id");
 		contactList.setSelectionMode(Grid.SelectionMode.SINGLE);
-//		contactList.addSelectionListener(e -> contactForm
-//				.edit((Province) contactList.getSelectedRow()));
+		//contactList.addSelectionListener(e -> contactForm
+		//		.edit((Country) contactList.getSelectedRow()));
 		refreshContacts();
 	}
 
@@ -76,8 +76,8 @@ public class ProvinceLayout extends VerticalLayout{
 
 	private void refreshContacts(String stringFilter) {
 		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Province.class, service.findAll(stringFilter)));
-		//contactForm.setVisible(false);
+				Continent.class, service.findAll(stringFilter)));
+		
 	}
 
 }

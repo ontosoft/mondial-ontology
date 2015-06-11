@@ -1,4 +1,4 @@
-package onto1;
+package ontologies.mondial;
 
 public interface ValueSubmittedListener {
 	 public default void onSubmitted(String value) {
