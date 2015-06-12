@@ -42,7 +42,7 @@ target		:province/{country}/{name} :provinceInCountry :country/{country} .
 source		select name,country from province
 
 mappingId	cl_Lake
-target		:lake/{name} a :Lake ; :lakeName {name} ; :lakeDepth {depth} ; :lakeArea {area} ; :lakeRiver {river} . 
+target		:lake/{name} a :Lake ; :waterName {name} ; :lakeDepth {depth} ; :lakeArea {area} ; :lakeRiver {river} ; :waterType "Lake"^^xsd:string . 
 source		select name, depth, area, river
 			from lake
 
@@ -52,7 +52,7 @@ source		select lake,country,province
 			from geo_lake
 
 mappingId	cl_River
-target		:river/{name} a :River ; :riverName {name} ; :riverMountains {mountains} . 
+target		:river/{name} a :River ; :waterName {name} ; :riverMountains {mountains} ; :waterType "River"^^xsd:string . 
 source		select name, mountains
 			from river
 
@@ -107,17 +107,17 @@ source		select country, gdp, agriculture, service, industry, inflation
 			from economy
 
 mappingId	cl_Island
-target		:island/{name} a :Island ; :islandName {name} ; :islandIslands {islands} ; :islandArea {area} ; :islandHeight {height} ; :islandType {type} . 
+target		:island/{name} a :Island ; :surfaceName {name} ; :islandIslands {islands} ; :islandArea {area} ; :islandHeight {height} ; :islandType {type} ; :surfaceType "Island"^^xsd:string . 
 source		select name, islands, area, height, type
 			from island
 
 mappingId	cl_Desert
-target		:desert/{name} a :Desert ; :desertName {name} ; :desertArea {area} . 
+target		:desert/{name} a :Desert ; :surfaceName {name} ; :desertArea {area} ; :surfaceType "Desert"^^xsd:string . 
 source		select name, area
 			from desert
 
 mappingId	cl_Sea
-target		:sea/{name} a :Sea ; :seaName {name} ; :seaDepth {depth} . 
+target		:sea/{name} a :Sea ; :waterName {name} ; :seaDepth {depth} ; :waterType "Sea"^^xsd:string . 
 source		select name, depth
 			from sea
 
@@ -137,7 +137,7 @@ source		select country, name, percentage
 			from religion
 
 mappingId	cl_Mountain
-target		:religion/{name} a :Mountain ; :mountainName {name} ; :mountainHeight {height} ; :mountainType {type} . 
+target		:mountain/{name} a :Mountain ; :surfaceName {name} ; :mountainHeight {height} ; :mountainType {type} ; :surfaceType "Mountain"^^xsd:string . 
 source		select name, height, type
 			from mountain
 
@@ -165,5 +165,25 @@ mappingId	op_memberOrganization
 target		:member/{organization}/{country} :memberOrganization :organization/{organization} . 
 source		select organization, country
 			from isMember
+
+mappingId	op_seaInProvince
+target		:sea/{sea} :seaInProvince :province/{country}/{province} . 
+source		select sea,country,province
+			from geo_sea
+
+mappingId	op_mountainInProvince
+target		:mountain/{mountain} :mountainInProvince :province/{country}/{province} . 
+source		select mountain,country,province
+			from geo_mountain
+
+mappingId	op_islandInProvince
+target		:island/{island} :islandInProvince :province/{country}/{province} . 
+source		select island,country,province
+			from geo_island
+
+mappingId	op_desertInProvince
+target		:desert/{desert} :desertInProvince :province/{country}/{province} . 
+source		select desert,country,province
+			from geo_desert
 ]]
 

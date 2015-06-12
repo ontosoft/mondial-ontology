@@ -168,7 +168,7 @@ public class CountryLayout extends VerticalLayout {
 
 	void reloadTuples(String continentString, String populationLess,
 			String populationGreater, String areaLess, String areaGreater) {
-		service = CountryService.reloadService(continentString, populationLess,
+		service = CountryService.reloadService("", continentString, populationLess,
 				populationGreater, areaLess, areaGreater);
 		refreshContacts(filter.getValue());
 	}

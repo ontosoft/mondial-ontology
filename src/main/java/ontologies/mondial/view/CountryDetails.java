@@ -44,12 +44,12 @@ public class CountryDetails extends HorizontalSplitPanel implements
 			this.setSecondComponent(provinceL);
 			break;
 		case "Hidrology": 
-//			CountryLayout countryL = new CountryLayout(country);
-//			this.setSecondComponent(country);
+			WaterLayout waterL = new WaterLayout(country);
+			this.setSecondComponent(waterL);
 			break;
 		case "Geo-morphology": 
-//			ContinentLayout continent = new ContinentLayout(country);
-//			this.setSecondComponent(continent);
+			SurfaceLayout surfaceL = new SurfaceLayout(country);
+			this.setSecondComponent(surfaceL);
 			break;
 		case "Economy": 
 			EconomyLayout economy = new EconomyLayout(country);

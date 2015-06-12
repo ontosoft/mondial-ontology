@@ -54,15 +54,15 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 				case "Provinces":
 					notifyListeners("Provinces");
 					break;
-				case "Countries":
+				case "Hidrology":
 					notifyListeners("Hidrology");
 					
 					break;
-				case "Economic data":
+				case "Geo-morphology":
 					notifyListeners("Geo-morphology");
 
 					break;
-				case "Continents":
+				case "Economy":
 					notifyListeners("Economy");
 					break;
 				default:

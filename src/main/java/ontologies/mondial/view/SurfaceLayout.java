@@ -1,13 +1,11 @@
 package ontologies.mondial.view;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import ontologies.mondial.dao.Country;
 import ontologies.mondial.dao.Province;
-import ontologies.mondial.services.ProvinceService;
+import ontologies.mondial.dao.Surface;
+import ontologies.mondial.services.SurfaceService;
 
-import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ShortcutAction.KeyCode;
@@ -21,75 +19,83 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-public class ProvinceLayout extends VerticalLayout {
+public class SurfaceLayout extends VerticalLayout {
 
-	/**
-	 * 
-	 */
-	
+	SurfaceSearchForm searchForm = null;
 	
 	private static final long serialVersionUID = -4679449649489092925L;
-	private ProvinceSearchForm searchForm = null;
-	private Country country = null;
-	private Table list = new Table() {
-		private static final long serialVersionUID = 1L;
 
-		@Override
-		public Align getColumnAlignment(Object propertyId) {
-			Class<?> t = getContainerDataSource().getType(propertyId);
-			if (t == Double.class)
-				return Table.Align.RIGHT;
-
-			if (t == Integer.class)
-				return Table.Align.RIGHT;
-			
-			return super.getColumnAlignment(propertyId);
-		}
-		   @Override
-		    protected String formatPropertyValue(Object rowId,
-		            Object colId, Property<?> property) {
-		        // Format by property type
-		        if (property.getType() == Date.class) {
-		            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		            return df.format((Date)property.getValue());
-		        }
-		        return super.formatPropertyValue(rowId, colId, property);
-		    }
-	};
-	//for table formating
-	String PERCENT_PROPERTY = "%";
-	
+	private Table list = new Table();
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
-	private ProvinceService service;
+	private SurfaceService service;
 
-	public ProvinceLayout() {
-		service = ProvinceService.createDemoService();
+	private Country country = null;
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	private Province province = null;
+
+	public SurfaceLayout() {
+		service = SurfaceService.createDemoService();
 		buildLayout();
 		configureComponents();
 		this.country = null;
+		this.province = null;
 	}
-
-	public ProvinceLayout(Country c) {
+	
+	public SurfaceLayout(Country c) {
 		this.country = c;
-		service = ProvinceService.reloadService(this.country.getUri(), "", "",
+		service = SurfaceService.reloadService("", this.country.getUri(), "", "",
 				"", "", "");
 		buildLayout();
 		configureComponents();
+		this.province = null;
 
 	}
 
+	public Table getContactList() {
+		return list;
+	}
+
+	public void setContactList(Table contactList) {
+		this.list = contactList;
+	}
+
+
+	public Button getSearchFormHide() {
+		return searchFormHide;
+	}
+
+	public void setSearchFormHide(Button searchFormHide) {
+		this.searchFormHide = searchFormHide;
+	}
+
 	private void buildLayout() {
-		searchForm = new ProvinceSearchForm(this);
+		searchForm =  new SurfaceSearchForm(this);
+		
 		GridLayout title = new GridLayout(1, 1);
 		title.setMargin(false);
 		title.setWidth("100%");
-		Label lblTitle = new Label("Provinces");
+		Label lblTitle = new Label(
+				"Geomorphological elements by provinces");
 		lblTitle.addStyleName("h2");
 		lblTitle.setSizeUndefined();
 		title.addComponent(lblTitle, 0, 0);
@@ -97,7 +103,6 @@ public class ProvinceLayout extends VerticalLayout {
 
 		this.addComponent(title);
 		this.addComponent(searchForm);
-
 		HorizontalLayout actions = new HorizontalLayout(filter, searchFormHide);
 		searchFormHide.setIcon(new ThemeResource("../../icons/up.svg"));
 		actions.setWidth("100%");
@@ -111,7 +116,6 @@ public class ProvinceLayout extends VerticalLayout {
 
 		this.setExpandRatio(list, 1);
 		list.setSizeFull();
-		
 
 	}
 
@@ -122,12 +126,14 @@ public class ProvinceLayout extends VerticalLayout {
 		filter.setInputPrompt("Filter contacts...");
 		filter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
-		list.setContainerDataSource(new BeanItemContainer<>(Province.class));
+		list.setContainerDataSource(new BeanItemContainer<>(
+				Surface.class));
+
 		list.setMultiSelect(false);
 		list.setSizeFull();
 		list.setSelectable(true);
 		list.setImmediate(true);
-
+ 
 		list.addShortcutListener(new ShortcutListener("Details",
 				KeyCode.ARROW_RIGHT, null) {
 
@@ -136,10 +142,10 @@ public class ProvinceLayout extends VerticalLayout {
 			@Override
 			public void handleAction(final Object sender, final Object target) {
 				if (list.getValue() != null) {
-					CountrySubWindow sub = new CountrySubWindow((Country)list.getValue());
+//					SurfaceSubWindow sub = new SurfaceSubWindow((Surface)list.getValue());
 			        
 			        // Add it to the root component
-			        UI.getCurrent().addWindow(sub);
+	//		        UI.getCurrent().addWindow(sub);
 				}
 			}
 		});
@@ -152,10 +158,10 @@ public class ProvinceLayout extends VerticalLayout {
 			@Override
 			public void handleAction(final Object sender, final Object target) {
 				if (list.getValue() != null) {
-					CountrySubWindow sub = new CountrySubWindow((Country)list.getValue());
+//					SurfaceSubWindow sub = new SurfaceSubWindow((Surface)list.getValue());
 			        
 			        // Add it to the root component
-			        UI.getCurrent().addWindow(sub);
+//			        UI.getCurrent().addWindow(sub);
 				}
 			}
 		});
@@ -173,58 +179,43 @@ public class ProvinceLayout extends VerticalLayout {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						BeanItem<?> item = (BeanItem<?>) source.getItem(itemId);
-						CountrySubWindow sub = new CountrySubWindow((Country)item.getBean());
+//						SurfaceSubWindow sub = new SurfaceSubWindow((Surface)item.getBean());
 				        
 				        // Add it to the root component
-				        UI.getCurrent().addWindow(sub);
+//				        UI.getCurrent().addWindow(sub);
 					}
 				});
 				return btn;
 			}
 		});
 
-		// contactList.addSelectionListener(e -> contactForm
-		// .edit((Province) contactList.getSelectedRow()));
 		refreshContacts();
 	}
 
 	void refreshContacts() {
 		refreshContacts(filter.getValue());
+
 	}
 
-	private void refreshContacts(String stringFilter) {
-		list.setContainerDataSource(new BeanItemContainer<>(Province.class,
-				service.findAll(stringFilter)));
-		list.setVisibleColumns("country", "province", "city", "population",
-				"area", "details");
-	}
-
-	void reloadTuples(String countryString, String populationLess,
-			String populationGreater, String areaLess, String areaGreater) {
+	void reloadTuples(String countryString, String provinceString, String nameString, String typeString) {
 		if (this.country != null)
-			service = ProvinceService.reloadService(this.country.getUri(),
-					countryString, populationLess, populationGreater, areaLess,
-					areaGreater);
+			service = SurfaceService.reloadService("", this.country.getUri(), "",countryString, provinceString, nameString, typeString);
+		else if(this.province !=null)
+			service = SurfaceService.reloadService("", "" , this.province.getUri(),countryString, provinceString, nameString, typeString);
 		else
-			service = ProvinceService.reloadService("", countryString,
-					populationLess, populationGreater, areaLess, areaGreater);
+			service = SurfaceService.reloadService("", "" , "",countryString, provinceString, nameString, typeString);
 		refreshContacts(filter.getValue());
 	}
 
-	public Button getSearchFormHide() {
-		return searchFormHide;
+	private void refreshContacts(String stringFilter) {
+		list.setContainerDataSource(new BeanItemContainer<>(
+				Surface.class, service.findAll(stringFilter)));
+		// footer.getCell("continent").setText("Number of items: "+
+		// service.findAll(stringFilter).size());
+		list.setVisibleColumns( "province", "name", "type","details");
+		Object [] properties={"type", "name"};
+		boolean [] ordering={true,true};
+		list.sort(properties, ordering);
 	}
-
-	public void setSearchFormHide(Button searchFormHide) {
-		this.searchFormHide = searchFormHide;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
+	
 }

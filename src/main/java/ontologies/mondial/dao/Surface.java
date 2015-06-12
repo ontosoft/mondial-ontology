@@ -1,8 +1,8 @@
 package ontologies.mondial.dao;
 
-import java.io.Serializable;
-
 import org.apache.commons.beanutils.BeanUtils;
+
+import java.io.Serializable;
 
 /**
  * A simple DTO for the address book example.
@@ -12,19 +12,19 @@ import org.apache.commons.beanutils.BeanUtils;
  */
 // Backend DTO class. This is just a typical Java backend implementation
 // class and nothing Vaadin specific.
-public class Province implements Serializable, Cloneable {
+public class Surface implements Serializable, Cloneable {
 
+	 /**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String uri="";
-    private String city = "";
-    private String province = "";
-    private String country = "";
-    private int population;
-    private double area;
-
-
+	private String country = "";
+	private String province = "";
+    private String name = "";
+    private String type = "";
 
     
 
@@ -36,6 +36,7 @@ public class Province implements Serializable, Cloneable {
 		this.id = id;
 	}
 
+
 	public String getUri() {
 		return uri;
 	}
@@ -44,12 +45,13 @@ public class Province implements Serializable, Cloneable {
 		this.uri = uri;
 	}
 
-	public String getCity() {
-		return city;
+	
+	public String getCountry() {
+		return country;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getProvince() {
@@ -60,45 +62,44 @@ public class Province implements Serializable, Cloneable {
 		this.province = province;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getName() {
+		return name;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
-    public int getPopulation() {
-		return population;
-	}
-
-	public void setPopulation(int population) {
-		this.population = population;
-	}
-
-	public double getArea() {
-		return area;
-	}
-
-	public void setArea(double d) {
-		this.area = d;
-	}
 
 	@Override
 	public String toString() {
-		return "Province [id=" + id + ", city=" + city + ", province="
-				+ province + ", country=" + country + "]";
+		return "Water [country=" + country + ", province=" + province
+				+ ", name=" + name + ", type=" + type + "]";
 	}
 
 	@Override
-    public Province clone() throws CloneNotSupportedException {
+    public Surface clone() throws CloneNotSupportedException {
         try {
-            return (Province) BeanUtils.cloneBean(this);
+            return (Surface) BeanUtils.cloneBean(this);
         } catch (Exception ex) {
             throw new CloneNotSupportedException();
         }
     }
+
+
+
+
+
+
 
 
 }

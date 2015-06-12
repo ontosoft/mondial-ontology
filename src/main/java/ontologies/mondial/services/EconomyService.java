@@ -20,12 +20,11 @@ public class EconomyService {
 	private static EconomyService instance;
 
 	public static EconomyService createDemoService() {
-		if (instance == null) {
 
 			EconomyService economyService = new EconomyService();
 				
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?gdp ?industry ?services  ?inflation ?continent where {"
+					+ "select distinct ?country ?gdp ?industry ?services  ?inflation ?continent ?co where {"
 					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
 					+ "  ?con :continentName ?continent. "
 					+ "  ?ec :economyInCountry ?co. "
@@ -48,15 +47,15 @@ public class EconomyService {
 				economy.setService(Float.parseFloat(row.get(3)));
 				economy.setIndustry(Float.parseFloat(row.get(4)));
 				economy.setContinent(row.get(5));
+				economy.setCountryuri(row.get(6));
 				economyService.save(economy);
 			}
 			instance = economyService;
-		}
 
 		return instance;
 	}
 	
-	public static EconomyService reloadService(String continentString, String gdpLess, 
+	public static EconomyService reloadService(String uri, String continentString, String gdpLess, 
 			String gdpGreater, String agricultureLess, String agricultureGreater,String industryLess, 
 			String industryGreater, String serviceLess, String serviceGreater, String inflationLess, 
 			String inflationGreater) {
@@ -64,7 +63,7 @@ public class EconomyService {
 			
 
 			String add1 = "",add2 = "", add3 = "", add4 = "", add5 = "",
-					add6 = "", add7 = "", add8 = "", add9 = "";
+					add6 = "", add7 = "", add8 = "", add9 = "", add10 = "";
 			if (!continentString.isEmpty()) 
 				add1 = "FILTER regex(str(?continent), \""+ continentString + "\"). ";
 			if (!gdpLess.isEmpty()) 
@@ -83,15 +82,17 @@ public class EconomyService {
 				add8 = "FILTER (?inflation < "+ ""+ inflationLess + "). ";
 			if (!inflationGreater.isEmpty()) 
 				add9 = "FILTER (?inflation > "+ ""+ inflationGreater + "). ";
+			if (!uri.isEmpty()) 
+				add10 = "FILTER (?co = "+ ""+ uri + "). ";
 			
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?gdp ?industry ?services  ?inflation ?continent where {"
+					+ "select distinct ?country ?gdp ?industry ?services  ?inflation ?continent ?co where {"
 					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
 					+ "  ?con :continentName ?continent. "
 					+ "  ?ec :economyInCountry ?co. "
 					+ "  ?ec :economyGdp ?gdp. ?ec :economyIndustry ?industry. "
 					+ "  ?ec :economyService ?services. ?ec :economyInflation ?inflation. " 
-					+ add1 + add2 + add3 + add4 + add5 + add6 + add7 + add8 + add9 + " }";
+					+ add1 + add2 + add3 + add4 + add5 + add6 + add7 + add8 + add9 + add10 + " }";
 			System.out.println("************Beginning********");
 			System.out.println(sparqlQuery);
 			
@@ -111,6 +112,7 @@ public class EconomyService {
 				economy.setService(Float.parseFloat(row.get(3)));
 				economy.setIndustry(Float.parseFloat(row.get(4)));
 				economy.setContinent(row.get(5));
+				economy.setCountryuri(row.get(6));
 				economyService.save(economy);
 			}
 			instance = economyService;
@@ -121,7 +123,7 @@ public class EconomyService {
 	private long nextId = 0;
 
 	public synchronized List<Economy> findAll(String stringFilter) {
-		ArrayList arrayList = new ArrayList();
+		ArrayList<Economy> arrayList = new ArrayList<Economy>();
 		for (Economy contact : contacts.values()) {
 			try {
 				boolean passesFilter = (stringFilter == null || stringFilter

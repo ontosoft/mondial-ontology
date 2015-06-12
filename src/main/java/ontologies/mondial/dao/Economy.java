@@ -28,6 +28,7 @@ public class Economy implements Serializable, Cloneable {
     private float industry;
     private float inflation;
     private String continent = "";
+	private String countryuri="";
 
 
     
@@ -97,6 +98,14 @@ public class Economy implements Serializable, Cloneable {
 
 	public void setContinent(String continent) {
 		this.continent = continent;
+	}
+
+	public String getCountryuri() {
+		return countryuri;
+	}
+
+	public void setCountryuri(String countryuri) {
+		this.countryuri = countryuri;
 	}
 
 	@Override

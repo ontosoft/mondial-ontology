@@ -14,7 +14,6 @@ public class ProvinceService {
     private static ProvinceService instance;
 
     public static ProvinceService createDemoService() {
-        if (instance == null) {
 
             final ProvinceService provinceService = new ProvinceService();
             
@@ -43,7 +42,6 @@ public class ProvinceService {
                 provinceService.save(province);
             }
             instance = provinceService;
-        }
 
         return instance;
     }
@@ -64,7 +62,6 @@ public class ProvinceService {
 				add4 = "FILTER (?area < "+ ""+ areaLess + "). ";
 			if (!areaGreater.isEmpty()) 
 				add5 = "FILTER (?area > "+ ""+ areaGreater + "). ";
-			System.out.println(uri);
 			if (!uri.isEmpty()) 
 				add6 = "FILTER (?co = "+ ""+ uri + "). ";
 			
@@ -94,7 +91,7 @@ public class ProvinceService {
 	                province.setProvince(row.get(2));
 	                province.setCity(row.get(3));
 	                province.setPopulation(Integer.parseInt(row.get(4)));
-	    			province.setArea(Float.parseFloat(row.get(5)));    
+	    			province.setArea(Double.parseDouble(row.get(5)));    
 	    			
 				provinceService.save(province);
 			}
@@ -106,7 +103,7 @@ public class ProvinceService {
     private long nextId = 0;
 
     public synchronized List<Province> findAll(String stringFilter) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Province> arrayList = new ArrayList<Province>();
         for (Province contact : contacts.values()) {
             try {
                 boolean passesFilter = (stringFilter == null || stringFilter.isEmpty())
