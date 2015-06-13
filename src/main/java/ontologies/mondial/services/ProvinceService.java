@@ -98,6 +98,61 @@ public class ProvinceService {
 			instance = provinceService;
 			return instance;
 	}
+	
+	public static ProvinceService searcByRiverService(String riverUri, String countryString, 
+			String populationLess, String populationGreater, String areaLess, String areaGreater) {
+			ProvinceService provinceService = new ProvinceService();
+			
+
+			String add1 = "",add2 = "", add3 = "", add4 = "", add5 = "", add6 = "";
+			if (!countryString.isEmpty()) 
+				add1 = "FILTER regex(str(?country), \""+ countryString + "\"). ";
+			if (!populationLess.isEmpty()) 
+				add2 = "FILTER (?population < "+ populationLess + "). ";
+			if (!populationGreater.isEmpty()) 
+				add3 = "FILTER (?population > "+ populationGreater + "). ";
+			if (!areaLess.isEmpty()) 
+				add4 = "FILTER (?area < "+ ""+ areaLess + "). ";
+			if (!areaGreater.isEmpty()) 
+				add5 = "FILTER (?area > "+ ""+ areaGreater + "). ";
+			if (!riverUri.isEmpty()) 
+				add6 = "FILTER (?ri = "+ ""+ riverUri + "). ";
+			
+			
+			
+			String sparqlQuery = 	"PREFIX : <http://www.example.org/monidal.owl#> \n" +
+					"select distinct ?p ?country ?province ?capital ?population ?area where {"
+                    + " ?p :provinceName ?province. ?p :provinceInCountry ?co. ?co :countryName ?country. "
+                    + " ?p :provinceHasCapital ?c. ?c :cityName ?capital. "
+                    + " ?ri :riverInProvince ?p. "
+					+ add1 + add2 + add3 + add4 + add5 + add6
+					+ "  ?p :provinceArea ?area. ?p :provincePopulation ?population. "
+					+  " }";
+
+			System.out.println(sparqlQuery);
+			
+			QuestOWLE quest = new QuestOWLE(sparqlQuery);
+			try {
+				quest.runQuery();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			for (ArrayList<String> row : quest.getQueryResult()) {
+				Province province = new Province();
+	                province.setUri(row.get(0));
+	                province.setCountry(row.get(1));
+	                province.setProvince(row.get(2));
+	                province.setCity(row.get(3));
+	                province.setPopulation(Integer.parseInt(row.get(4)));
+	    			province.setArea(Double.parseDouble(row.get(5)));    
+	    			
+				provinceService.save(province);
+			}
+			instance = provinceService;
+			return instance;
+	}
 
     private HashMap<Long, Province> contacts = new HashMap<>();
     private long nextId = 0;

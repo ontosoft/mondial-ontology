@@ -34,12 +34,25 @@
   @include reindeer;
   
   	$color : blue;
+  	$blue1 : #D1FFFF;
+  	$rose : #FFD4E9;
+  	$gray1 : #D4D4BF;
   	
    .v-textfield.numerical {
    text-align:right !important;
    color:  $color;
    
    }
+   .center1 {
+   	text-align:center;
+   }
+   .cyanback { 
+     background: $blue1;}
+   .roseback { 
+     background: $rose;}
+     
+    .grayback { 
+     background: $gray1;}  
    
     .v-caption .v-caption-numerical {
     text-align:right !important;

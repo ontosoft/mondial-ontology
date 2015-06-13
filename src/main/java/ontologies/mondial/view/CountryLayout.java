@@ -6,6 +6,8 @@ import ontologies.mondial.services.CountryService;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.server.ThemeResource;
@@ -118,6 +120,20 @@ public class CountryLayout extends VerticalLayout {
 				}
 			}
 		});
+		
+		contactList.addItemClickListener(new ItemClickListener() {
+			private static final long serialVersionUID = 1L;
+
+
+			@Override
+			public void itemClick(ItemClickEvent event) {
+                if (event.isDoubleClick()){
+                	BeanItem<?> item = (BeanItem<?>) event.getItem();
+                	CountrySubWindow sub = new CountrySubWindow((Country)item.getBean());
+                	 UI.getCurrent().addWindow(sub);
+                }
+			}
+        });
 		//click on Enter
 		contactList.addShortcutListener(new ShortcutListener("Default key",
 				KeyCode.ENTER, null) {

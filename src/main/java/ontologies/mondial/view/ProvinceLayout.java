@@ -5,6 +5,7 @@ import java.util.Date;
 
 import ontologies.mondial.dao.Country;
 import ontologies.mondial.dao.Province;
+import ontologies.mondial.dao.River;
 import ontologies.mondial.services.ProvinceService;
 
 import com.vaadin.data.Property;
@@ -36,6 +37,7 @@ public class ProvinceLayout extends VerticalLayout {
 	private static final long serialVersionUID = -4679449649489092925L;
 	private ProvinceSearchForm searchForm = null;
 	private Country country = null;
+	private River river = null;
 	private Table list = new Table() {
 		private static final long serialVersionUID = 1L;
 
@@ -83,6 +85,15 @@ public class ProvinceLayout extends VerticalLayout {
 		configureComponents();
 
 	}
+	
+	public ProvinceLayout(River r) {
+		this.river = r;
+		service = ProvinceService.searcByRiverService(this.river.getUri(), "", "",
+				"", "", "");
+		buildLayout();
+		configureComponents();
+
+	}
 
 	private void buildLayout() {
 		searchForm = new ProvinceSearchForm(this);
@@ -90,6 +101,8 @@ public class ProvinceLayout extends VerticalLayout {
 		title.setMargin(false);
 		title.setWidth("100%");
 		Label lblTitle = new Label("Provinces");
+		if (getRiver()!=null)
+			lblTitle.setValue("River flows through provinces");
 		lblTitle.addStyleName("h2");
 		lblTitle.setSizeUndefined();
 		title.addComponent(lblTitle, 0, 0);
@@ -225,6 +238,14 @@ public class ProvinceLayout extends VerticalLayout {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public River getRiver() {
+		return river;
+	}
+
+	public void setRiver(River river) {
+		this.river = river;
 	}
 
 }

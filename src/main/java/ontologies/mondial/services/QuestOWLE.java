@@ -112,8 +112,14 @@ public class QuestOWLE {
 					ArrayList<String> queryRow = new ArrayList<String>();
 					for (int idx = 1; idx <= columnSize; idx++) {
 						OWLObject binding = rs.getOWLObject(idx);
+						if (binding != null){
 						System.out.print(binding.toString() + ", ");
 						queryRow.add(trimmString(binding.toString()));
+						}
+						else{
+							System.out.print("" + ", ");
+							queryRow.add("");
+						}
 						
 					}
 					this.queryResult.add(queryRow);

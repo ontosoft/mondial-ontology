@@ -5,9 +5,12 @@ import ontologies.mondial.dao.Continent;
 import ontologies.mondial.services.ContinentService;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
@@ -36,6 +39,16 @@ public class ContinentLayout extends VerticalLayout{
     }
 
 	private void buildLayout() {
+		GridLayout title = new GridLayout(1, 1);
+		title.setMargin(false);
+		title.setWidth("100%");
+		Label lblTitle = new Label("Continent");
+		lblTitle.addStyleName("h2");
+		lblTitle.setSizeUndefined();
+		title.addComponent(lblTitle, 0, 0);
+		title.setComponentAlignment(lblTitle, Alignment.MIDDLE_CENTER);
+		this.addComponent(title);
+		
 		HorizontalLayout actions = new HorizontalLayout(filter, newContact);
 		actions.setWidth("100%");
 		filter.setWidth("100%");
@@ -61,7 +74,7 @@ public class ContinentLayout extends VerticalLayout{
 
 		contactList.setContainerDataSource(new BeanItemContainer<>(
 				Continent.class));
-		contactList.setColumnOrder("country","area","population","capital");
+		contactList.setColumnOrder("name","area");
 		contactList.removeColumn("id");
 		contactList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		//contactList.addSelectionListener(e -> contactForm

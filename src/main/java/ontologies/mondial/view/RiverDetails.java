@@ -1,12 +1,11 @@
 package ontologies.mondial.view;
 
 import ontologies.mondial.ValueSubmittedListener;
-import ontologies.mondial.dao.Country;
-import ontologies.mondial.view.EconomyLayout;
+import ontologies.mondial.dao.River;
 
 import com.vaadin.ui.HorizontalSplitPanel;
 
-public class CountryDetails extends HorizontalSplitPanel implements
+public class RiverDetails extends HorizontalSplitPanel implements
 		ValueSubmittedListener {
 
 	public void alternatingSearchForm(){
@@ -22,11 +21,11 @@ public class CountryDetails extends HorizontalSplitPanel implements
 		
 	}
 
-	private Country country;
+	private River river;
 	
-	public CountryDetails(Country country) {
+	public RiverDetails(River r) {
 		super();
-		this.country = country;
+		this.river = r;
 	}
 
 	private static final long serialVersionUID = 1030484021469740942L;
@@ -40,24 +39,12 @@ public class CountryDetails extends HorizontalSplitPanel implements
 		ValueSubmittedListener.super.onSubmitted(value);
 		switch(value){
 		case "Provinces": 
-			ProvinceLayout provinceL = new ProvinceLayout(country);
+			ProvinceLayout provinceL = new ProvinceLayout(river);
 			this.setSecondComponent(provinceL);
 			break;
-		case "Hidrology": 
-			WaterLayout waterL = new WaterLayout(country);
+		case "FlowsTo": 
+			WaterLayout waterL = new WaterLayout(river);
 			this.setSecondComponent(waterL);
-			break;
-		case "Geo-morphology": 
-			SurfaceLayout surfaceL = new SurfaceLayout(country);
-			this.setSecondComponent(surfaceL);
-			break;
-		case "Economy": 
-			EconomyLayout economy = new EconomyLayout(country);
-			this.setSecondComponent(economy);
-			break;
-		case "Religion": 
-			ReligionLayout religion = new ReligionLayout(country);
-			this.setSecondComponent(religion);
 			break;
 		default:
 			break;

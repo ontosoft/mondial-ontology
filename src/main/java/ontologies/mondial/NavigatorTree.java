@@ -60,6 +60,10 @@ public class NavigatorTree extends VerticalLayout {
 					notifyListeners("Economic data");
 
 					break;
+				case "Religion":
+					notifyListeners("Religion");
+
+					break;
 				case "Continents":
 					notifyListeners("Continents");
 					break;
@@ -74,24 +78,26 @@ public class NavigatorTree extends VerticalLayout {
 
 		t.addItem("General");
 		t.addItem("Economy");
-		t.addItem("Economy");
+		t.addItem("Society");
 		t.addItem("Advanced queries");
 		t.addItem("Countries");
 		t.addItem("Continents");
 		t.addItem("Provinces");
 		t.addItem("Economic data");
+		t.addItem("Religion");
 
 		// Set the hierarchy
 		t.setParent("Continents", "General");
 		t.setParent("Countries", "General");
 		t.setParent("Provinces", "General");
 		t.setParent("Economic data","Economy");
-		
+		t.setParent("Religion", "Society");
 
 		t.setChildrenAllowed("Country", false);
 		t.setChildrenAllowed("Continent", false);
 		t.setChildrenAllowed("Provinces", false);
 		t.setChildrenAllowed("Economic data", false);
+		t.setChildrenAllowed("Religion", false);
 		
 		this.addComponent(t);
 

@@ -3,11 +3,15 @@ package ontologies.mondial.view;
 
 import ontologies.mondial.dao.Country;
 import ontologies.mondial.dao.Province;
+import ontologies.mondial.dao.River;
 import ontologies.mondial.dao.Water;
+import ontologies.mondial.services.RiverService;
 import ontologies.mondial.services.WaterService;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.server.ThemeResource;
@@ -21,6 +25,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class WaterLayout extends VerticalLayout {
@@ -35,23 +40,9 @@ public class WaterLayout extends VerticalLayout {
 	private WaterService service;
 
 	private Country country = null;
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	public Province getProvince() {
-		return province;
-	}
-
-	public void setProvince(Province province) {
-		this.province = province;
-	}
-
 	private Province province = null;
+	private River river = null;
+	
 
 	public WaterLayout() {
 		service = WaterService.createDemoService();
@@ -59,6 +50,7 @@ public class WaterLayout extends VerticalLayout {
 		configureComponents();
 		this.country = null;
 		this.province = null;
+		this.setRiver(null);
 	}
 	
 	public WaterLayout(Country c) {
@@ -68,7 +60,16 @@ public class WaterLayout extends VerticalLayout {
 		buildLayout();
 		configureComponents();
 		this.province = null;
-
+		this.setRiver(null);
+	}
+	//Water elements in which this River flows to 
+	public WaterLayout(River r) {
+		this.setRiver(r);
+		service = WaterService.reloadByRiverDestination(this.river.getUri());
+		buildLayout();
+		configureComponents();
+		this.province = null;
+		this.country = null;
 	}
 
 	public Table getContactList() {
@@ -142,10 +143,8 @@ public class WaterLayout extends VerticalLayout {
 			@Override
 			public void handleAction(final Object sender, final Object target) {
 				if (list.getValue() != null) {
-//					WaterSubWindow sub = new WaterSubWindow((Water)list.getValue());
-			        
-			        // Add it to the root component
-	//		        UI.getCurrent().addWindow(sub);
+					openWaterInSubWindow((Water)list.getValue());
+					
 				}
 			}
 		});
@@ -158,13 +157,23 @@ public class WaterLayout extends VerticalLayout {
 			@Override
 			public void handleAction(final Object sender, final Object target) {
 				if (list.getValue() != null) {
-//					WaterSubWindow sub = new WaterSubWindow((Water)list.getValue());
-			        
-			        // Add it to the root component
-//			        UI.getCurrent().addWindow(sub);
+					openWaterInSubWindow((Water)list.getValue());
 				}
 			}
 		});
+		
+		list.addItemClickListener(new ItemClickListener() {
+			private static final long serialVersionUID = 1L;
+
+
+			@Override
+			public void itemClick(ItemClickEvent event) {
+                if (event.isDoubleClick()){
+                	BeanItem<?> item = (BeanItem<?>) event.getItem();
+                	openWaterInSubWindow((Water)item.getBean());
+                }
+			}
+        });
 
 		list.addGeneratedColumn("details", new ColumnGenerator() {
 			private static final long serialVersionUID = 1L;
@@ -179,10 +188,7 @@ public class WaterLayout extends VerticalLayout {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						BeanItem<?> item = (BeanItem<?>) source.getItem(itemId);
-//						WaterSubWindow sub = new WaterSubWindow((Water)item.getBean());
-				        
-				        // Add it to the root component
-//				        UI.getCurrent().addWindow(sub);
+						openWaterInSubWindow((Water)item.getBean());
 					}
 				});
 				return btn;
@@ -216,6 +222,42 @@ public class WaterLayout extends VerticalLayout {
 		Object [] properties={"type", "name"};
 		boolean [] ordering={true,true};
 		list.sort(properties, ordering);
+	}
+	//Opens selected water element in new SubWindow 
+	private void openWaterInSubWindow(Water w){
+		//First gethering information of the selected river
+		if (w.getType().equals("River")){
+			RiverService riverService = RiverService.retrieveSecificRiver(w.getUri());
+			River r = (River)riverService.getFirst();
+			RiverSubWindow sub = new RiverSubWindow(r);
+
+		    UI.getCurrent().addWindow(sub);
+		}
+		
+	}
+	
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
+	}
+
+	public River getRiver() {
+		return river;
+	}
+
+	public void setRiver(River river) {
+		this.river = river;
 	}
 	
 }

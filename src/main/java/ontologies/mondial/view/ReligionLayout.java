@@ -1,9 +1,9 @@
 package ontologies.mondial.view;
 
 import ontologies.mondial.dao.Country;
-import ontologies.mondial.dao.Economy;
+import ontologies.mondial.dao.Religion;
 import ontologies.mondial.services.CountryService;
-import ontologies.mondial.services.EconomyService;
+import ontologies.mondial.services.ReligionService;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
@@ -23,9 +23,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-public class EconomyLayout extends VerticalLayout {
+public class ReligionLayout extends VerticalLayout {
 
-	EconomySearchForm searchForm = null;
+	ReligionSearchForm searchForm = null;
 	/**
 	 * 
 	 */
@@ -41,7 +41,7 @@ public class EconomyLayout extends VerticalLayout {
 		@Override
 		public Align getColumnAlignment(Object propertyId) {
 			Class<?> t = getContainerDataSource().getType(propertyId);
-			if (t == Float.class)
+			if (t == Double.class)
 				return Table.Align.RIGHT;
 
 			if (t == Integer.class)
@@ -52,23 +52,22 @@ public class EconomyLayout extends VerticalLayout {
 	};
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
-	private EconomyService service;
+	private ReligionService service;
 	private Country country;
 
 	// for table formating
 	String PERCENT_PROPERTY = "%";
 
-	public EconomyLayout() {
-		service = EconomyService.createDemoService();
+	public ReligionLayout() {
+		service = ReligionService.createDemoService();
 		buildLayout();
 		configureComponents();
 		this.country = null;
 	}
 
-	public EconomyLayout(Country c) {
+	public ReligionLayout(Country c) {
 		this.country = c;
-		service = EconomyService.reloadService(this.country.getUri(), "", "",
-				"", "", "", "", "", "", "", "", "");
+		service = ReligionService.reloadService(this.country.getUri(), "", "", "", "");
 		buildLayout();
 		configureComponents();
 		searchFormHide.setVisible(false);
@@ -84,12 +83,13 @@ public class EconomyLayout extends VerticalLayout {
 	}
 
 	private void buildLayout() {
-		searchForm = new EconomySearchForm(this);
+		searchForm = new ReligionSearchForm(this);
 
 		GridLayout title = new GridLayout(1, 1);
 		title.setMargin(false);
 		title.setWidth("100%");
-		Label lblTitle = new Label("Economic data");
+		Label lblTitle = new Label("Religious groups");
+		
 		lblTitle.addStyleName("h2");
 		lblTitle.setSizeUndefined();
 		title.addComponent(lblTitle, 0, 0);
@@ -120,7 +120,7 @@ public class EconomyLayout extends VerticalLayout {
 		filter.setInputPrompt("Filter contacts...");
 		filter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
-		list.setContainerDataSource(new BeanItemContainer<>(Economy.class));
+		list.setContainerDataSource(new BeanItemContainer<>(Religion.class));
 		list.setMultiSelect(false);
 		list.setSizeFull();
 		list.setSelectable(true);
@@ -171,7 +171,7 @@ public class EconomyLayout extends VerticalLayout {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						BeanItem<?> item = (BeanItem<?>) source.getItem(itemId);
-						CountryService countryService = CountryService.reloadService(((Economy)item.getBean()).getCountryuri(), "", "","", "", "");
+						CountryService countryService = CountryService.reloadService(((Religion)item.getBean()).getCountryUri(), "", "","", "", "");
 						Country c = (Country)countryService.getFirst();
 						CountrySubWindow sub = new CountrySubWindow(c);
 				        
@@ -192,30 +192,22 @@ public class EconomyLayout extends VerticalLayout {
 
 	}
 
-	void reloadTuples(String continentString, String gdpLess,
-			String gdpGreater, String agricultureLess,
-			String agricultureGreater, String industryLess,
-			String industryGreater, String serviceLess, String serviceGreater,
-			String inflationLess, String inflationGreater) {
+	void reloadTuples(String countryString, String religionName,
+			String percentageLess, String percentageGreater) {
 		if (this.country != null)
-			service = EconomyService.reloadService(this.country.getUri(),
-					continentString, gdpLess, gdpGreater, agricultureLess,
-					agricultureGreater, industryLess, industryGreater,
-					serviceLess, serviceGreater, inflationLess,
-					inflationGreater);
+			service = ReligionService.reloadService(this.country.getUri(),
+					countryString, religionName, percentageLess, percentageGreater);
 		else
-			service = EconomyService.reloadService("", continentString,
-					gdpLess, gdpGreater, agricultureLess, agricultureGreater,
-					industryLess, industryGreater, serviceLess, serviceGreater,
-					inflationLess, inflationGreater);
+			service = ReligionService.reloadService("",countryString, religionName, percentageLess, percentageGreater);
 		refreshContacts(filter.getValue());
 	}
 
 	private void refreshContacts(String stringFilter) {
-		list.setContainerDataSource(new BeanItemContainer<>(Economy.class,
+		list.setContainerDataSource(new BeanItemContainer<>(Religion.class,
 				service.findAll(stringFilter)));
-		list.setVisibleColumns("country", "gdp", "agriculture", "service",
-				"industry", "inflation", "continent","details");
+		list.setVisibleColumns("country", "name", "percentage", "details");
+		if (this.country!=null)
+			list.setVisibleColumns("country", "name", "percentage");
 
 	}
 

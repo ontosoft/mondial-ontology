@@ -90,8 +90,8 @@ public class EconomyService {
 					+ "  ?co :countryName ?country. ?en :encompass1 ?co. ?en :encompass2 ?con.  "
 					+ "  ?con :continentName ?continent. "
 					+ "  ?ec :economyInCountry ?co. "
-					+ "  ?ec :economyGdp ?gdp. ?ec :economyIndustry ?industry. "
-					+ "  ?ec :economyService ?services. ?ec :economyInflation ?inflation. " 
+					+ "  OPTIONAL {?ec :economyGdp ?gdp. } OPTIONAL { ?ec :economyIndustry ?industry.} "
+					+ "  OPTIONAL {?ec :economyService ?services.} OPTIONAL {?ec :economyInflation ?inflation.} " 
 					+ add1 + add2 + add3 + add4 + add5 + add6 + add7 + add8 + add9 + add10 + " }";
 			System.out.println("************Beginning********");
 			System.out.println(sparqlQuery);
@@ -107,9 +107,13 @@ public class EconomyService {
 			for (ArrayList<String> row : quest.getQueryResult()) {
 				Economy economy = new Economy();
 				economy.setCountry(row.get(0));
-				economy.setGdp(Float.parseFloat(row.get(1)));
-				economy.setAgriculture(Float.parseFloat(row.get(2)));
-				economy.setService(Float.parseFloat(row.get(3)));
+				if(!row.get(1).equals(""))
+					economy.setGdp(Float.parseFloat(row.get(1)));
+				if(!row.get(2).equals(""))
+					economy.setAgriculture(Float.parseFloat(row.get(2)));
+				if(!row.get(3).equals(""))
+					economy.setService(Float.parseFloat(row.get(3)));
+				if(!row.get(4).equals(""))
 				economy.setIndustry(Float.parseFloat(row.get(4)));
 				economy.setContinent(row.get(5));
 				economy.setCountryuri(row.get(6));

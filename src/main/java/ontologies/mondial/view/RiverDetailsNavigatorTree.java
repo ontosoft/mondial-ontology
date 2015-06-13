@@ -10,7 +10,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class CountryDetailsNavigatorTree extends VerticalLayout {
+public class RiverDetailsNavigatorTree extends VerticalLayout {
 	/**
 	 * 
 	 */
@@ -29,7 +29,7 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 		}
 	}
 
-	public CountryDetailsNavigatorTree() {
+	public RiverDetailsNavigatorTree() {
 		// TODO Auto-generated constructor stub
 		
 		this.setSizeUndefined();
@@ -51,24 +51,13 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 					Notification.show(event.getItemId().toString(),
 							Notification.Type.TRAY_NOTIFICATION);
 				switch (event.getItemId().toString()) {
+				case "FlowsTo":
+					notifyListeners("FlowsTo");
+					break;
 				case "Provinces":
 					notifyListeners("Provinces");
-					break;
-				case "Hidrology":
-					notifyListeners("Hidrology");
 					
 					break;
-				case "Geo-morphology":
-					notifyListeners("Geo-morphology");
-
-					break;
-				case "Economy":
-					notifyListeners("Economy");
-					break;
-				case "Religion":
-					notifyListeners("Religion");
-					break;	
-					
 				default:
 					break;
 				}
@@ -78,21 +67,14 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 		t.setSizeFull();
 		t.setImmediate(true);
 
+		t.addItem("FlowsTo");
 		t.addItem("Provinces");
-		t.addItem("Hidrology");
-		t.addItem("Geo-morphology");
-		t.addItem("Economy");
-		t.addItem("Religion");
 
-
+		t.setChildrenAllowed("FlowsTo", false);
 		t.setChildrenAllowed("Provinces", false);
-		t.setChildrenAllowed("Hidrology", false);
-		t.setChildrenAllowed("Geo-morphology", false);
-		t.setChildrenAllowed("Economy", false);
-		t.setChildrenAllowed("Religion", false);
 		
 		this.addComponent(t);
-		this.addStyleName("roseback");
+		this.setStyleName("cyanback");
 	}
 
 }

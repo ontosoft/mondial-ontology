@@ -4,6 +4,7 @@ import ontologies.mondial.view.ContinentLayout;
 import ontologies.mondial.view.CountryLayout;
 import ontologies.mondial.view.EconomyLayout;
 import ontologies.mondial.view.ProvinceLayout;
+import ontologies.mondial.view.ReligionLayout;
 
 import com.vaadin.ui.HorizontalSplitPanel;
 
@@ -35,6 +36,10 @@ public class MainSplitPannel extends HorizontalSplitPanel implements
 		case "Economic data": 
 			EconomyLayout economy = new EconomyLayout();
 			this.setSecondComponent(economy);
+			break;
+		case "Religion": 
+			ReligionLayout religion = new ReligionLayout();
+			this.setSecondComponent(religion);
 			break;
 		default:
 			break;

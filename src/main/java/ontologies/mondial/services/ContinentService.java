@@ -26,9 +26,8 @@ public class ContinentService {
 			final ContinentService continentService = new ContinentService();
 
 			String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
-					+ "select distinct ?country ?area ?population ?capital where {"
-					+ "  ?co :countryName ?country. ?co :countryHasCapital ?ct. ?ct :cityName ?capital.  "
-					+ "  ?co :countryArea ?area. ?co :countryPopulation ?population}";
+					+ "select distinct ?name ?area where {"
+					+ " ?co :continentName ?name. ?co :continentArea ?area. }";
 
 			QuestOWLE quest = new QuestOWLE(sparqlQuery);
 			try {
@@ -40,10 +39,8 @@ public class ContinentService {
 
 			for (ArrayList<String> row : quest.getQueryResult()) {
 				Continent country = new Continent();
-				country.setCountry(row.get(0));
-				country.setArea(Float.parseFloat(row.get(1)));
-				country.setPopulation(Integer.parseInt(row.get(2)));
-				country.setCapital(row.get(3));
+				country.setName(row.get(0));
+				country.setArea(Double.parseDouble(row.get(1)));
 
 				continentService.save(country);
 			}
@@ -57,7 +54,7 @@ public class ContinentService {
 	private long nextId = 0;
 
 	public synchronized List<Continent> findAll(String stringFilter) {
-		ArrayList arrayList = new ArrayList();
+		ArrayList<Continent> arrayList = new ArrayList<Continent>();
 		for (Continent contact : contacts.values()) {
 			try {
 				boolean passesFilter = (stringFilter == null || stringFilter

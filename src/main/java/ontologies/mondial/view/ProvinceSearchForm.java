@@ -31,6 +31,8 @@ public class ProvinceSearchForm extends VerticalLayout {
 				countryString.setVisible(false);
 		else
 			countryString.setVisible(true);
+		if (p.getRiver() != null) 
+			alternatingSearchForm();
 		
 	}
 

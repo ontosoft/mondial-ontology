@@ -100,6 +100,44 @@ public class WaterService {
 		instance = waterService;
 		return instance;
 	}
+	
+	public static WaterService reloadByRiverDestination(String riverFlowsTo) {
+		WaterService waterService = new WaterService();
+
+		String add1 = "";
+		if (!riverFlowsTo.isEmpty())
+			add1 = " FILTER (?ri = " + "" + riverFlowsTo + "). ";
+		
+		String sparqlQuery = "PREFIX : <http://www.example.org/monidal.owl#> \n"
+				+ "select distinct ?wa ?country ?province ?name ?type  where {"
+				+ " ?p :provinceName ?province. ?p :provinceInCountry ?co. ?co :countryName ?country. "
+				+ " ?wa :waterName ?name. ?wa :waterInProvince ?p.   ?wa :waterType ?type. "
+				+ " ?ri :riverFlowsTo ?wa. "
+				+ add1 
+				+ " }";
+		System.out.println("************ Beginning sparql water ********");
+		System.out.println(sparqlQuery);
+
+		QuestOWLE quest = new QuestOWLE(sparqlQuery);
+		try {
+			quest.runQuery();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (ArrayList<String> row : quest.getQueryResult()) {
+			Water water = new Water();
+			water.setUri(row.get(0));
+			water.setCountry(row.get(1));
+			water.setProvince(row.get(2));
+			water.setName(row.get(3));
+			water.setType(row.get(4));
+			waterService.save(water);
+		}
+		instance = waterService;
+		return instance;
+	}
 
 	private HashMap<Long, Water> contacts = new HashMap<>();
 	private long nextId = 0;

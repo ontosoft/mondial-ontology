@@ -52,8 +52,8 @@ source		select lake,country,province
 			from geo_lake
 
 mappingId	cl_River
-target		:river/{name} a :River ; :waterName {name} ; :riverMountains {mountains} ; :waterType "River"^^xsd:string . 
-source		select name, mountains
+target		:river/{name} a :River ; :waterName {name} ; :riverLength {length} ; :riverSourceCoo {source} ; :riverEstuaryCoo {estuary} ; :riverMountains {mountains} ; :riverSourceAltitude {sourcealtitude} ; :waterType "River"^^xsd:string . 
+source		select name, length, source, estuary, mountains, sourcealtitude
 			from river
 
 mappingId	op_riverInProvince
@@ -185,5 +185,25 @@ mappingId	op_desertInProvince
 target		:desert/{desert} :desertInProvince :province/{country}/{province} . 
 source		select desert,country,province
 			from geo_desert
+
+mappingId	op_riverFlowsToRiver
+target		:river/{name} :riverFlowsToRiver :river/{river} . 
+source		select name, river
+			from river
+
+mappingId	op_riverFlowsToLake
+target		:river/{name} :riverFlowsToLake :lake/{lake} . 
+source		select name, lake
+			from river
+
+mappingId	op_riverFlowsToLake(0)
+target		:river/{name} :riverFlowsToLake :sea/{sea} . 
+source		select name, sea
+			from river
+
+mappingId	op_religionInCountry
+target		:religion/{country}/{name} :religionInCountry :country/{country} . 
+source		select name, country
+			from religion
 ]]
 

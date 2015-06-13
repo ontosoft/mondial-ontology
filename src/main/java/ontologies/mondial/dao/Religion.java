@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 // Backend DTO class. This is just a typical Java backend implementation
 // class and nothing Vaadin specific.
-public class Continent implements Serializable, Cloneable {
+public class Religion implements Serializable, Cloneable {
 
 	 /**
 	 * 
@@ -20,10 +20,10 @@ public class Continent implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-
-    private String name = "";
-    private Double area;
-
+	private String countryUri = "";
+	private String country = "";
+	private String name = "";
+    private Double percentage;
 
     
 
@@ -36,7 +36,21 @@ public class Continent implements Serializable, Cloneable {
 	}
 
 
+	 public String getCountry() {
+		return country;
+	}
 
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCountryUri() {
+		return countryUri;
+	}
+
+	public void setCountryUri(String countryUri) {
+		this.countryUri = countryUri;
+	}
 
 	public String getName() {
 		return name;
@@ -46,18 +60,19 @@ public class Continent implements Serializable, Cloneable {
 		this.name = name;
 	}
 
-	public Double getArea() {
-		return area;
+	public Double getPercentage() {
+		return percentage;
 	}
 
-	public void setArea(Double area) {
-		this.area = area;
+	public void setPercentage(Double percentage) {
+		this.percentage = percentage;
 	}
+
 
 	@Override
-    public Continent clone() throws CloneNotSupportedException {
+    public Religion clone() throws CloneNotSupportedException {
         try {
-            return (Continent) BeanUtils.cloneBean(this);
+            return (Religion) BeanUtils.cloneBean(this);
         } catch (Exception ex) {
             throw new CloneNotSupportedException();
         }
