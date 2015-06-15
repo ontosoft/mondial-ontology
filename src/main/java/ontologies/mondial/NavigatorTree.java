@@ -9,6 +9,8 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 public class NavigatorTree extends VerticalLayout {
+	private static final String COUNTRY = "Country";
+	private static final String PROVINCES = "Provinces";
 	/**
 	 * 
 	 */
@@ -49,8 +51,8 @@ public class NavigatorTree extends VerticalLayout {
 					Notification.show(event.getItemId().toString(),
 							Notification.Type.TRAY_NOTIFICATION);
 				switch (event.getItemId().toString()) {
-				case "Provinces":
-					notifyListeners("Provinces");
+				case PROVINCES:
+					notifyListeners(PROVINCES);
 					break;
 				case "Countries":
 					notifyListeners("Countries");
@@ -82,20 +84,20 @@ public class NavigatorTree extends VerticalLayout {
 		t.addItem("Advanced queries");
 		t.addItem("Countries");
 		t.addItem("Continents");
-		t.addItem("Provinces");
+		t.addItem(PROVINCES);
 		t.addItem("Economic data");
 		t.addItem("Religion");
 
 		// Set the hierarchy
 		t.setParent("Continents", "General");
 		t.setParent("Countries", "General");
-		t.setParent("Provinces", "General");
+		t.setParent(PROVINCES, "General");
 		t.setParent("Economic data","Economy");
 		t.setParent("Religion", "Society");
 
-		t.setChildrenAllowed("Country", false);
+		t.setChildrenAllowed(COUNTRY, false);
 		t.setChildrenAllowed("Continent", false);
-		t.setChildrenAllowed("Provinces", false);
+		t.setChildrenAllowed(PROVINCES, false);
 		t.setChildrenAllowed("Economic data", false);
 		t.setChildrenAllowed("Religion", false);
 		
