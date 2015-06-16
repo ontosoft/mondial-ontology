@@ -59,6 +59,10 @@ public class CountryDetails extends HorizontalSplitPanel implements
 			ReligionLayout religion = new ReligionLayout(country);
 			this.setSecondComponent(religion);
 			break;
+		case "Borders": 
+			CountryBLayout countryB = new CountryBLayout(country);
+			this.setSecondComponent(countryB);
+			break;
 		default:
 			break;
 		}

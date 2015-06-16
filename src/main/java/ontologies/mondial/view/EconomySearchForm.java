@@ -15,16 +15,16 @@ public class EconomySearchForm extends VerticalLayout {
 	private static final long serialVersionUID = 851894446243275846L;
 	Button search= new Button("Search", this::search);
 	Button cancel = new Button ("Clean", this::cancel);
-	TextField gdpLess = new TextField("GDP less than");
-	TextField gdpGreater = new TextField("GDP greater than");
-    TextField agricultureLess = new TextField("Agriculture less than");
-    TextField agricultureGreater = new TextField("Agriculture greater than");
-    TextField serviceLess = new TextField("Service less than");
-    TextField serviceGreater = new TextField("Service greater than");
-    TextField industryLess = new TextField("Industry less than");
-    TextField industryGreater = new TextField("Industry greater than");
-    TextField inflationLess = new TextField("Inflation less than");
-    TextField inflationGreater = new TextField("Inflation greater than");
+	TextField gdpLess = new TextField("GDP less than  (mil. $)");
+	TextField gdpGreater = new TextField("GDP greater than (mil. $)");
+    TextField agricultureLess = new TextField("Agriculture less than (%)");
+    TextField agricultureGreater = new TextField("Agriculture greater than (%)");
+    TextField serviceLess = new TextField("Service less than (%)");
+    TextField serviceGreater = new TextField("Service greater than (%)");
+    TextField industryLess = new TextField("Industry less than (%)");
+    TextField industryGreater = new TextField("Industry greater than (%)");
+    TextField inflationLess = new TextField("Inflation less than (%)");
+    TextField inflationGreater = new TextField("Inflation greater than (%)");
     TextField continentString = new TextField("Continent");
     
     EconomyLayout parentForm = null;

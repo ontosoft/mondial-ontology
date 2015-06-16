@@ -30,6 +30,24 @@
     
 
 
+    <!-- http://www.example.org/monidal.owl#border1 -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#border1">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Border"/>
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Country"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.example.org/monidal.owl#border2 -->
+
+    <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#border2">
+        <rdfs:domain rdf:resource="http://www.example.org/monidal.owl#Border"/>
+        <rdfs:range rdf:resource="http://www.example.org/monidal.owl#Country"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.example.org/monidal.owl#cityInProvince -->
 
     <owl:ObjectProperty rdf:about="http://www.example.org/monidal.owl#cityInProvince">
@@ -794,7 +812,32 @@
 
     <!-- http://www.example.org/monidal.owl#Border -->
 
-    <owl:Class rdf:about="http://www.example.org/monidal.owl#Border"/>
+    <owl:Class rdf:about="http://www.example.org/monidal.owl#Border">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#border1"/>
+                        <owl:someValuesFrom rdf:resource="http://www.example.org/monidal.owl#Country"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#border2"/>
+                        <owl:someValuesFrom rdf:resource="http://www.example.org/monidal.owl#Country"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#border1"/>
+                        <owl:onClass rdf:resource="http://www.example.org/monidal.owl#Country"/>
+                        <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#border2"/>
+                        <owl:onClass rdf:resource="http://www.example.org/monidal.owl#Country"/>
+                        <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
@@ -838,16 +881,6 @@
 
     <owl:Class rdf:about="http://www.example.org/monidal.owl#Country">
         <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty>
-                    <rdf:Description>
-                        <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#countryHasCapital"/>
-                    </rdf:Description>
-                </owl:onProperty>
-                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
                     <owl:Restriction>
@@ -869,6 +902,16 @@
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty>
+                    <rdf:Description>
+                        <owl:inverseOf rdf:resource="http://www.example.org/monidal.owl#countryHasCapital"/>
+                    </rdf:Description>
+                </owl:onProperty>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -988,12 +1031,6 @@
 
     <owl:Class rdf:about="http://www.example.org/monidal.owl#Member">
         <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#memberType"/>
-                <owl:someValuesFrom rdf:resource="&xsd;string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
                     <owl:Restriction>
@@ -1020,6 +1057,12 @@
                 <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#memberType"/>
                 <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
                 <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.example.org/monidal.owl#memberType"/>
+                <owl:someValuesFrom rdf:resource="&xsd;string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>

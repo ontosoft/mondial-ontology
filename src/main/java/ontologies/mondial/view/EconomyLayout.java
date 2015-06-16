@@ -182,6 +182,13 @@ public class EconomyLayout extends VerticalLayout {
 				return btn;
 			}
 		});
+		list.setColumnHeader("agriculture", "agriculture %");
+		list.setColumnHeader("service", "service %");
+		list.setColumnHeader("industry", "industry %");
+		list.setColumnHeader("inflation", "inflation %");
+		
+		list.setColumnHeader("gdp", "gdp (mil. $)");
+		
 		// contactList.addSelectionListener(e -> contactForm
 		// .edit((Continent) contactList.getSelectedRow()));
 		refreshContacts();

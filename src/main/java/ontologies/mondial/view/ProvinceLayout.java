@@ -63,8 +63,6 @@ public class ProvinceLayout extends VerticalLayout {
 		        return super.formatPropertyValue(rowId, colId, property);
 		    }
 	};
-	//for table formating
-	String PERCENT_PROPERTY = "%";
 	
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
@@ -195,9 +193,8 @@ public class ProvinceLayout extends VerticalLayout {
 				return btn;
 			}
 		});
-
-		// contactList.addSelectionListener(e -> contactForm
-		// .edit((Province) contactList.getSelectedRow()));
+		
+		list.setColumnHeader("area", "area (km²)");
 		refreshContacts();
 	}
 

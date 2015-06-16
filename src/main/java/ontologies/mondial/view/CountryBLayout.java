@@ -1,7 +1,8 @@
 package ontologies.mondial.view;
 
-
 import ontologies.mondial.dao.Country;
+import ontologies.mondial.dao.CountryB;
+import ontologies.mondial.services.CountryBService;
 import ontologies.mondial.services.CountryService;
 
 import com.vaadin.data.util.BeanItem;
@@ -24,9 +25,9 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-public class CountryLayout extends VerticalLayout {
+public class CountryBLayout extends VerticalLayout {
 
-	CountrySearchForm searchForm = new CountrySearchForm(this);
+	CountryBSearchForm searchForm = new CountryBSearchForm(this);
 	
 	private static final long serialVersionUID = -4679449649489092925L;
 
@@ -49,12 +50,21 @@ public class CountryLayout extends VerticalLayout {
 	};
 	private Button searchFormHide = new Button();
 	private TextField filter = new TextField();
-	private CountryService service = CountryService.createDemoService();
+	private CountryBService service ;
+	private Country country = null;
 
-
-	public CountryLayout() {
+	public CountryBLayout() {
 		buildLayout();
 		configureComponents();
+	}
+	
+	public CountryBLayout(Country c) {
+		this.country = c;
+		service = CountryBService.reloadService(this.country.getUri(), "", "",
+				"", "", "");
+		buildLayout();
+		configureComponents();
+
 	}
 
 	public Table getContactList() {
@@ -83,6 +93,8 @@ public class CountryLayout extends VerticalLayout {
 		title.setWidth("100%");
 		Label lblTitle = new Label(
 				"General data about countries within continent");
+		if (getCountry()!=null)
+			lblTitle.setValue("Neighbouring countries");
 		lblTitle.addStyleName("h2");
 		lblTitle.setSizeUndefined();
 		title.addComponent(lblTitle, 0, 0);
@@ -114,7 +126,7 @@ public class CountryLayout extends VerticalLayout {
 		filter.addTextChangeListener(e -> refreshContacts(e.getText()));
 
 		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Country.class));
+				CountryB.class));
 
 		contactList.setMultiSelect(false);
 		contactList.setSizeFull();
@@ -145,7 +157,10 @@ public class CountryLayout extends VerticalLayout {
 			public void itemClick(ItemClickEvent event) {
                 if (event.isDoubleClick()){
                 	BeanItem<?> item = (BeanItem<?>) event.getItem();
-                	CountrySubWindow sub = new CountrySubWindow((Country)item.getBean());
+                	
+                	CountryService countryService = CountryService.reloadService(((CountryB)item.getBean()).getUri(), "", "", "", "", "");
+        			Country c = (Country)countryService.getFirst();
+                	CountrySubWindow sub = new CountrySubWindow(c);
                 	 UI.getCurrent().addWindow(sub);
                 }
 			}
@@ -159,10 +174,10 @@ public class CountryLayout extends VerticalLayout {
 			@Override
 			public void handleAction(final Object sender, final Object target) {
 				if (contactList.getValue() != null) {
-					CountrySubWindow sub = new CountrySubWindow((Country)contactList.getValue());
-			        
-			        // Add it to the root component
-			        UI.getCurrent().addWindow(sub);
+					CountryService countryService = CountryService.reloadService(((CountryB)contactList.getValue()).getUri(), "", "", "", "", "");
+        			Country c = (Country)countryService.getFirst();
+                	CountrySubWindow sub = new CountrySubWindow(c);
+                	 UI.getCurrent().addWindow(sub);
 				}
 			}
 		});
@@ -180,10 +195,11 @@ public class CountryLayout extends VerticalLayout {
 					@Override
 					public void buttonClick(ClickEvent event) {
 						BeanItem<?> item = (BeanItem<?>) source.getItem(itemId);
-						CountrySubWindow sub = new CountrySubWindow((Country)item.getBean());
-				        
-				        // Add it to the root component
-				        UI.getCurrent().addWindow(sub);
+						
+						CountryService countryService = CountryService.reloadService(((CountryB)item.getBean()).getUri(), "", "", "", "", "");
+	        			Country c = (Country)countryService.getFirst();
+	                	CountrySubWindow sub = new CountrySubWindow(c);
+	                	 UI.getCurrent().addWindow(sub);
 					}
 				});
 				return btn;
@@ -191,7 +207,7 @@ public class CountryLayout extends VerticalLayout {
 		});
 		
 		contactList.setColumnHeader("area", "area (km²)");
-
+		contactList.setColumnHeader("borderLength", "border length (km)");
 		refreshContacts();
 	}
 
@@ -202,21 +218,29 @@ public class CountryLayout extends VerticalLayout {
 
 	void reloadTuples(String continentString, String populationLess,
 			String populationGreater, String areaLess, String areaGreater) {
-		service = CountryService.reloadService("", continentString, populationLess,
+		service = CountryBService.reloadService("", continentString, populationLess,
 				populationGreater, areaLess, areaGreater);
 		refreshContacts(filter.getValue());
 	}
 
 	private void refreshContacts(String stringFilter) {
 		contactList.setContainerDataSource(new BeanItemContainer<>(
-				Country.class, service.findAll(stringFilter)));
+				CountryB.class, service.findAll(stringFilter)));
 		// footer.getCell("continent").setText("Number of items: "+
 		// service.findAll(stringFilter).size());
-		contactList.setVisibleColumns( "country", "capital", "area",
+		contactList.setVisibleColumns( "country", "borderLength", "capital", "area",
 				"population", "continent","details");
 		Object [] properties={"continent", "country"};
 		boolean [] ordering={true,true};
 		contactList.sort(properties, ordering);
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 	
 }

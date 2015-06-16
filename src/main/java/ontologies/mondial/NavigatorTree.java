@@ -9,7 +9,14 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 public class NavigatorTree extends VerticalLayout {
-	private static final String COUNTRY = "Country";
+	private static final String ADVANCED_QUERIES = "Advanced queries";
+	private static final String SOCIETY = "Society";
+	private static final String ECONOMY = "Economy";
+	private static final String GENERAL = "General";
+	private static final String CONTINENTS = "Continents";
+	private static final String RELIGION = "Religion";
+	private static final String ECONOMIC_DATA = "Economic data";
+	private static final String COUNTRIES = "Countries";
 	private static final String PROVINCES = "Provinces";
 	/**
 	 * 
@@ -54,20 +61,20 @@ public class NavigatorTree extends VerticalLayout {
 				case PROVINCES:
 					notifyListeners(PROVINCES);
 					break;
-				case "Countries":
-					notifyListeners("Countries");
+				case COUNTRIES:
+					notifyListeners(COUNTRIES);
 					
 					break;
-				case "Economic data":
-					notifyListeners("Economic data");
+				case ECONOMIC_DATA:
+					notifyListeners(ECONOMIC_DATA);
 
 					break;
-				case "Religion":
-					notifyListeners("Religion");
+				case RELIGION:
+					notifyListeners(RELIGION);
 
 					break;
-				case "Continents":
-					notifyListeners("Continents");
+				case CONTINENTS:
+					notifyListeners(CONTINENTS);
 					break;
 				default:
 					break;
@@ -78,28 +85,28 @@ public class NavigatorTree extends VerticalLayout {
 		t.setSizeFull();
 		t.setImmediate(true);
 
-		t.addItem("General");
-		t.addItem("Economy");
-		t.addItem("Society");
-		t.addItem("Advanced queries");
-		t.addItem("Countries");
-		t.addItem("Continents");
+		t.addItem(GENERAL);
+		t.addItem(ECONOMY);
+		t.addItem(SOCIETY);
+		t.addItem(ADVANCED_QUERIES);
+		t.addItem(COUNTRIES);
+		t.addItem(CONTINENTS);
 		t.addItem(PROVINCES);
-		t.addItem("Economic data");
-		t.addItem("Religion");
+		t.addItem(ECONOMIC_DATA);
+		t.addItem(RELIGION);
 
 		// Set the hierarchy
-		t.setParent("Continents", "General");
-		t.setParent("Countries", "General");
-		t.setParent(PROVINCES, "General");
-		t.setParent("Economic data","Economy");
-		t.setParent("Religion", "Society");
+		t.setParent(CONTINENTS, GENERAL);
+		t.setParent(COUNTRIES, GENERAL);
+		t.setParent(PROVINCES, GENERAL);
+		t.setParent(ECONOMIC_DATA,ECONOMY);
+		t.setParent(RELIGION, SOCIETY);
 
-		t.setChildrenAllowed(COUNTRY, false);
-		t.setChildrenAllowed("Continent", false);
+		t.setChildrenAllowed(COUNTRIES, false);
+		t.setChildrenAllowed(CONTINENTS, false);
 		t.setChildrenAllowed(PROVINCES, false);
-		t.setChildrenAllowed("Economic data", false);
-		t.setChildrenAllowed("Religion", false);
+		t.setChildrenAllowed(ECONOMIC_DATA, false);
+		t.setChildrenAllowed(RELIGION, false);
 		
 		this.addComponent(t);
 

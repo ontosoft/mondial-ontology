@@ -7,7 +7,7 @@ rdfs:		http://www.w3.org/2000/01/rdf-schema#
 
 [SourceDeclaration]
 sourceUri	mundial
-connectionUrl	jdbc:postgresql://localhost:5432/mundial
+connectionUrl	jdbc:postgresql://localhost:5432/mondial
 username	postgres
 password	sa
 driverClass	org.postgresql.Driver
@@ -97,7 +97,7 @@ source		select country, independence, dependent, government
 			from politics
 
 mappingId	cl_Border
-target		:border/{country1}/{country2} a :Border ; :borderCountry1 {country1} ; :borderCountry2 {country2} ; :borderLength {length} . 
+target		:border/{country1}/{country2} a :Border ; :borderLength {length} . 
 source		select country1, country2, length
 			from borders
 
@@ -205,5 +205,20 @@ mappingId	op_religionInCountry
 target		:religion/{country}/{name} :religionInCountry :country/{country} . 
 source		select name, country
 			from religion
+
+mappingId	op_border1
+target		:border/{country1}/{country2} :border1 :country/{country1} . 
+source		select country1, country2
+			from borders
+
+mappingId	op_border2
+target		:border/{country1}/{country2} :border2 :country/{country2} . 
+source		select country1, country2
+			from borders
+
+mappingId	cl_encompass(0)
+target		:border/{country1}/{country2} a :Border . 
+source		select country1, country2
+			from borders
 ]]
 

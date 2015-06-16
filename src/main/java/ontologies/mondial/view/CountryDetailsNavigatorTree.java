@@ -11,6 +11,12 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 public class CountryDetailsNavigatorTree extends VerticalLayout {
+	private static final String RELIGION = "Religion";
+	private static final String ECONOMY = "Economy";
+	private static final String GEO_MORPHOLOGY = "Geo-morphology";
+	private static final String HIDROLOGY = "Hidrology";
+	private static final String PROVINCES = "Provinces";
+	private static final String BORDERS = "Borders";
 	/**
 	 * 
 	 */
@@ -51,22 +57,26 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 					Notification.show(event.getItemId().toString(),
 							Notification.Type.TRAY_NOTIFICATION);
 				switch (event.getItemId().toString()) {
-				case "Provinces":
-					notifyListeners("Provinces");
+				case PROVINCES:
+					notifyListeners(PROVINCES);
 					break;
-				case "Hidrology":
-					notifyListeners("Hidrology");
+				case HIDROLOGY:
+					notifyListeners(HIDROLOGY);
 					
 					break;
-				case "Geo-morphology":
-					notifyListeners("Geo-morphology");
+				case GEO_MORPHOLOGY:
+					notifyListeners(GEO_MORPHOLOGY);
 
 					break;
-				case "Economy":
-					notifyListeners("Economy");
+				case BORDERS:
+					notifyListeners(BORDERS);
+
 					break;
-				case "Religion":
-					notifyListeners("Religion");
+				case ECONOMY:
+					notifyListeners(ECONOMY);
+					break;
+				case RELIGION:
+					notifyListeners(RELIGION);
 					break;	
 					
 				default:
@@ -78,18 +88,20 @@ public class CountryDetailsNavigatorTree extends VerticalLayout {
 		t.setSizeFull();
 		t.setImmediate(true);
 
-		t.addItem("Provinces");
-		t.addItem("Hidrology");
-		t.addItem("Geo-morphology");
-		t.addItem("Economy");
-		t.addItem("Religion");
+		t.addItem(PROVINCES);
+		t.addItem(HIDROLOGY);
+		t.addItem(GEO_MORPHOLOGY);
+		t.addItem(BORDERS);
+		t.addItem(ECONOMY);
+		t.addItem(RELIGION);
 
 
-		t.setChildrenAllowed("Provinces", false);
-		t.setChildrenAllowed("Hidrology", false);
-		t.setChildrenAllowed("Geo-morphology", false);
-		t.setChildrenAllowed("Economy", false);
-		t.setChildrenAllowed("Religion", false);
+		t.setChildrenAllowed(PROVINCES, false);
+		t.setChildrenAllowed(HIDROLOGY, false);
+		t.setChildrenAllowed(GEO_MORPHOLOGY, false);
+		t.setChildrenAllowed(BORDERS, false);
+		t.setChildrenAllowed(ECONOMY, false);
+		t.setChildrenAllowed(RELIGION, false);
 		
 		this.addComponent(t);
 		this.addStyleName("roseback");

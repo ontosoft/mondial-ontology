@@ -79,6 +79,7 @@ public class ContinentLayout extends VerticalLayout{
 		contactList.setSelectionMode(Grid.SelectionMode.SINGLE);
 		//contactList.addSelectionListener(e -> contactForm
 		//		.edit((Country) contactList.getSelectedRow()));
+		contactList.getDefaultHeaderRow().getCell("area") .setHtml("area (km²)");
 		refreshContacts();
 	}
 

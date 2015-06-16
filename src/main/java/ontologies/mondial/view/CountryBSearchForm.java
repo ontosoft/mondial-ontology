@@ -8,7 +8,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class CountrySearchForm extends VerticalLayout {
+public class CountryBSearchForm extends VerticalLayout {
 	/**
 	 * 
 	 */
@@ -21,10 +21,10 @@ public class CountrySearchForm extends VerticalLayout {
     TextField areaGreater = new TextField("Area greater than (km²)");
     TextField continentString = new TextField("Continent");
     
-    CountryLayout parentForm = null;
+    CountryBLayout parentForm = null;
     
     
-    public CountrySearchForm(CountryLayout p){
+    public CountryBSearchForm(CountryBLayout p){
     	parentForm = p;
     	configureComponents();
     	buildLayout();

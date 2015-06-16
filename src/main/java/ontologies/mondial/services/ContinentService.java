@@ -9,13 +9,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Separate Java service class. Backend implementation for the address book
- * application, with "detached entities" simulating real world DAO. Typically
- * these something that the Java EE or Spring backend services provide.
- */
-// Backend service class. This is just a typical Java backend implementation
-// class and nothing Vaadin specific.
 public class ContinentService {
 
 	private static ContinentService instance;

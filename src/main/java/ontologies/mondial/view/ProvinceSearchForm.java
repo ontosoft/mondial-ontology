@@ -15,10 +15,10 @@ public class ProvinceSearchForm extends VerticalLayout {
 	private static final long serialVersionUID = 851894446243275846L;
 	Button search = new Button("Search", this::search);
 	Button cancel = new Button("Clean", this::cancel);
-	TextField populationLess = new TextField("Population <");
-	TextField populationGreater = new TextField("Population >");
-	TextField areaLess = new TextField("Area <");
-	TextField areaGreater = new TextField("Area >");
+	TextField populationLess = new TextField("Population less than");
+	TextField populationGreater = new TextField("Population greater than");
+	TextField areaLess = new TextField("Area less than (km²)");
+	TextField areaGreater = new TextField("Area greater than (km²)");
 	TextField countryString = new TextField("Country");
 
 	ProvinceLayout parentForm = null;

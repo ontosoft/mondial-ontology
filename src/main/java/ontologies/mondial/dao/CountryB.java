@@ -4,8 +4,13 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import java.io.Serializable;
 
+/**
+ * This class represents one of issues of this approach.
+ * Namely.how to extract additional data for country without creating new DAO classes
+ * We created new class CountryB for additional data about length of country borders 
+ */
 
-public class Country implements Serializable, Cloneable {
+public class CountryB implements Serializable, Cloneable {
 
 	 /**
 	 * 
@@ -19,6 +24,7 @@ public class Country implements Serializable, Cloneable {
     private float area;
     private String continent = "";
     private int population;
+    private Double borderLength;
 
     
 
@@ -80,10 +86,18 @@ public class Country implements Serializable, Cloneable {
 		this.continent = continent;
 	}
 
+	public Double getBorderLength() {
+		return borderLength;
+	}
+
+	public void setBorderLength(Double borderLength) {
+		this.borderLength = borderLength;
+	}
+
 	@Override
-    public Country clone() throws CloneNotSupportedException {
+    public CountryB clone() throws CloneNotSupportedException {
         try {
-            return (Country) BeanUtils.cloneBean(this);
+            return (CountryB) BeanUtils.cloneBean(this);
         } catch (Exception ex) {
             throw new CloneNotSupportedException();
         }
